@@ -1,0 +1,59 @@
+@page "/cart"
+@rendermode InteractiveServer
+@inject CartService Cart
+@inject NavigationManager Navigation
+
+<PageTitle>Cart</PageTitle>
+
+<h1>Your cart</h1>
+
+@if (Cart.Items.Count == 0)
+{
+    <p>Your cart is empty. <a href="shop">Continue shopping</a></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Cart.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>
+                        <input type="number" min="1" value="@item.Quantity"
+                               @onchange="e => UpdateQty(item.ProductId, e)" />
+                    </td>
+                    <td>@item.LineTotal.ToString("C")</td>
+                    <td>
+                        <button class="btn btn-link" @onclick="() => Cart.Remove(item.ProductId)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p class="cart-total"><strong>Total: @Cart.Total.ToString("C")</strong></p>
+    <button class="btn btn-primary" @onclick="GoCheckout">Checkout</button>
+}
+
+@code {
+    private void UpdateQty(int productId, ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var qty))
+        {
+            Cart.UpdateQuantity(productId, qty);
+        }
+    }
+
+    private void GoCheckout() => Navigation.NavigateTo("/checkout");
+}

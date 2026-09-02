@@ -1,0 +1,127 @@
+@page "/admin/categories"
+@rendermode InteractiveServer
+@inject AppDbContext Db
+@inject AdminSession Session
+@inject NavigationManager Navigation
+
+<PageTitle>Manage categories</PageTitle>
+
+@if (!Session.IsAuthenticated)
+{
+    Navigation.NavigateTo("/admin/login");
+}
+else
+{
+    <AdminNav />
+
+    <h1>Categories</h1>
+
+    <section class="admin-form">
+        <h2>@(editingId is null ? "Add category" : "Edit category")</h2>
+        <EditForm Model="form" OnValidSubmit="Save">
+            <div class="form-group">
+                <label>Name</label>
+                <InputText @bind-Value="form.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <InputText @bind-Value="form.Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>
+                    <InputCheckbox @bind-Value="form.IsActive" /> Active
+                </label>
+            </div>
+            <button class="btn btn-primary" type="submit">Save</button>
+            @if (editingId is not null)
+            {
+                <button class="btn btn-secondary" type="button" @onclick="CancelEdit">Cancel</button>
+            }
+        </EditForm>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>@(category.IsActive ? "Yes" : "No")</td>
+                    <td>
+                        <button class="btn btn-link" @onclick="() => Edit(category)">Edit</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Category> categories = [];
+    private CategoryForm form = new();
+    private int? editingId;
+
+    protected override async Task OnInitializedAsync() =>
+        categories = await Db.Categories.OrderBy(c => c.Name).ToListAsync();
+
+    private async Task Save()
+    {
+        if (editingId is null)
+        {
+            Db.Categories.Add(new Category
+            {
+                Name = form.Name.Trim(),
+                Description = form.Description?.Trim(),
+                IsActive = form.IsActive
+            });
+        }
+        else
+        {
+            var category = await Db.Categories.FindAsync(editingId.Value);
+            if (category is not null)
+            {
+                category.Name = form.Name.Trim();
+                category.Description = form.Description?.Trim();
+                category.IsActive = form.IsActive;
+            }
+        }
+
+        await Db.SaveChangesAsync();
+        categories = await Db.Categories.OrderBy(c => c.Name).ToListAsync();
+        form = new CategoryForm();
+        editingId = null;
+    }
+
+    private void Edit(Category category)
+    {
+        editingId = category.Id;
+        form = new CategoryForm
+        {
+            Name = category.Name,
+            Description = category.Description,
+            IsActive = category.IsActive
+        };
+    }
+
+    private void CancelEdit()
+    {
+        editingId = null;
+        form = new CategoryForm();
+    }
+
+    private sealed class CategoryForm
+    {
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
+}

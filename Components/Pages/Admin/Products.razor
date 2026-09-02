@@ -1,0 +1,174 @@
+@page "/admin/products"
+@rendermode InteractiveServer
+@inject AppDbContext Db
+@inject AdminSession Session
+@inject NavigationManager Navigation
+
+<PageTitle>Manage products</PageTitle>
+
+@if (!Session.IsAuthenticated)
+{
+    Navigation.NavigateTo("/admin/login");
+}
+else
+{
+    <AdminNav />
+
+    <h1>Products</h1>
+
+    <section class="admin-form">
+        <h2>@(editingId is null ? "Add product" : "Edit product")</h2>
+        <EditForm Model="form" OnValidSubmit="Save">
+            <div class="form-group">
+                <label>Name</label>
+                <InputText @bind-Value="form.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <InputText @bind-Value="form.Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <InputNumber @bind-Value="form.Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Stock</label>
+                <InputNumber @bind-Value="form.Stock" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <InputSelect @bind-Value="form.CategoryId" class="form-control">
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label>
+                    <InputCheckbox @bind-Value="form.IsActive" /> Active
+                </label>
+            </div>
+            <button class="btn btn-primary" type="submit">Save</button>
+            @if (editingId is not null)
+            {
+                <button class="btn btn-secondary" type="button" @onclick="CancelEdit">Cancel</button>
+            }
+        </EditForm>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Active</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Category.Name</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.Stock</td>
+                    <td>@(product.IsActive ? "Yes" : "No")</td>
+                    <td>
+                        <button class="btn btn-link" @onclick="() => Edit(product)">Edit</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Category> categories = [];
+    private List<Product> products = [];
+    private ProductForm form = new();
+    private int? editingId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Db.Categories.Where(c => c.IsActive).OrderBy(c => c.Name).ToListAsync();
+        await LoadProducts();
+        if (categories.Count > 0 && form.CategoryId == 0)
+        {
+            form.CategoryId = categories[0].Id;
+        }
+    }
+
+    private async Task LoadProducts() =>
+        products = await Db.Products
+            .Include(p => p.Category)
+            .OrderBy(p => p.Name)
+            .ToListAsync();
+
+    private async Task Save()
+    {
+        if (editingId is null)
+        {
+            Db.Products.Add(new Product
+            {
+                Name = form.Name.Trim(),
+                Description = form.Description?.Trim(),
+                Price = form.Price,
+                Stock = form.Stock,
+                CategoryId = form.CategoryId,
+                IsActive = form.IsActive
+            });
+        }
+        else
+        {
+            var product = await Db.Products.FindAsync(editingId.Value);
+            if (product is not null)
+            {
+                product.Name = form.Name.Trim();
+                product.Description = form.Description?.Trim();
+                product.Price = form.Price;
+                product.Stock = form.Stock;
+                product.CategoryId = form.CategoryId;
+                product.IsActive = form.IsActive;
+            }
+        }
+
+        await Db.SaveChangesAsync();
+        await LoadProducts();
+        form = new ProductForm { CategoryId = categories.FirstOrDefault()?.Id ?? 0 };
+        editingId = null;
+    }
+
+    private void Edit(Product product)
+    {
+        editingId = product.Id;
+        form = new ProductForm
+        {
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            Stock = product.Stock,
+            CategoryId = product.CategoryId,
+            IsActive = product.IsActive
+        };
+    }
+
+    private void CancelEdit()
+    {
+        editingId = null;
+        form = new ProductForm { CategoryId = categories.FirstOrDefault()?.Id ?? 0 };
+    }
+
+    private sealed class ProductForm
+    {
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public int CategoryId { get; set; }
+        public bool IsActive { get; set; } = true;
+    }
+}

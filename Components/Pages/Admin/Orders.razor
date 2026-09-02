@@ -1,0 +1,130 @@
+@page "/admin/orders"
+@page "/admin/orders/{OrderId:int}"
+@rendermode InteractiveServer
+@inject OrderService Orders
+@inject AdminSession Session
+@inject NavigationManager Navigation
+
+<PageTitle>Manage orders</PageTitle>
+
+@if (!Session.IsAuthenticated)
+{
+    Navigation.NavigateTo("/admin/login");
+}
+else
+{
+    <AdminNav />
+
+    <h1>Orders</h1>
+
+    @if (selectedOrder is not null)
+    {
+        <section class="admin-detail">
+            <h2>Order #@selectedOrder.Id</h2>
+            <p><strong>Customer:</strong> @selectedOrder.CustomerName (@selectedOrder.CustomerEmail)</p>
+            <p><strong>Phone:</strong> @selectedOrder.CustomerPhone</p>
+            <p><strong>Address:</strong> @selectedOrder.ShippingAddress</p>
+            <p><strong>Total:</strong> @selectedOrder.TotalAmount.ToString("C")</p>
+            <p><strong>Created:</strong> @selectedOrder.CreatedAt.ToLocalTime()</p>
+
+            <div class="form-group">
+                <label>Status</label>
+                <select @bind="selectedStatus" class="form-control">
+                    @foreach (var status in Enum.GetValues<OrderStatus>())
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-primary" @onclick="UpdateStatus">Update status</button>
+            <button class="btn btn-secondary" @onclick="ClearSelection">Back to list</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Line</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in selectedOrder.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                            <td>@item.LineTotal.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in orderList)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.CustomerName</td>
+                        <td>@order.TotalAmount.ToString("C")</td>
+                        <td>@order.Status</td>
+                        <td>@order.CreatedAt.ToLocalTime()</td>
+                        <td>
+                            <a href="@($"/admin/orders/{order.Id}")">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    [Parameter] public int? OrderId { get; set; }
+
+    private List<Order> orderList = [];
+    private Order? selectedOrder;
+    private OrderStatus selectedStatus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orderList = await Orders.GetOrdersAsync();
+        if (OrderId is int id)
+        {
+            selectedOrder = await Orders.GetOrderAsync(id);
+            if (selectedOrder is not null)
+            {
+                selectedStatus = selectedOrder.Status;
+            }
+        }
+    }
+
+    private async Task UpdateStatus()
+    {
+        if (selectedOrder is null)
+        {
+            return;
+        }
+
+        await Orders.UpdateStatusAsync(selectedOrder.Id, selectedStatus);
+        selectedOrder = await Orders.GetOrderAsync(selectedOrder.Id);
+        orderList = await Orders.GetOrdersAsync();
+    }
+
+    private void ClearSelection() => Navigation.NavigateTo("/admin/orders");
+}

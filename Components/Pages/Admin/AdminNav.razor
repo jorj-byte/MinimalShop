@@ -1,0 +1,17 @@
+@inject AdminSession Session
+@inject NavigationManager Navigation
+
+<nav class="admin-nav">
+    <a href="/admin/categories">Categories</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/orders">Orders</a>
+    <button class="btn btn-link" @onclick="Logout">Logout</button>
+</nav>
+
+@code {
+    private void Logout()
+    {
+        Session.Logout();
+        Navigation.NavigateTo("/admin/login");
+    }
+}

@@ -1,0 +1,49 @@
+@page "/admin"
+@page "/admin/login"
+@rendermode InteractiveServer
+@inject AdminSession Session
+@inject IOptions<AdminSettings> Settings
+@inject NavigationManager Navigation
+
+<PageTitle>Admin login</PageTitle>
+
+@if (Session.IsAuthenticated)
+{
+    Navigation.NavigateTo("/admin/categories");
+}
+else
+{
+    <h1>Admin login</h1>
+    <EditForm Model="model" OnValidSubmit="Login">
+        <div class="form-group">
+            <label>Password</label>
+            <InputText type="password" @bind-Value="model.Password" class="form-control" />
+        </div>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <p class="error">@error</p>
+        }
+        <button class="btn btn-primary" type="submit">Login</button>
+    </EditForm>
+}
+
+@code {
+    private LoginModel model = new();
+    private string? error;
+
+    private void Login()
+    {
+        if (Session.Login(model.Password, Settings.Value.Password))
+        {
+            Navigation.NavigateTo("/admin/categories");
+            return;
+        }
+
+        error = "Invalid password.";
+    }
+
+    private sealed class LoginModel
+    {
+        public string Password { get; set; } = string.Empty;
+    }
+}

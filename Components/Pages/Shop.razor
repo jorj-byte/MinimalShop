@@ -1,0 +1,87 @@
+@page "/shop"
+@rendermode InteractiveServer
+@inject AppDbContext Db
+@inject CartService Cart
+
+<PageTitle>Shop</PageTitle>
+
+<h1>Shop</h1>
+
+<div class="toolbar">
+    <label>
+        Category
+        <select @bind="SelectedCategoryId" @bind:after="LoadProducts">
+            <option value="0">All categories</option>
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </label>
+</div>
+
+@if (products.Count == 0)
+{
+    <p>No products found.</p>
+}
+else
+{
+    <div class="product-grid">
+        @foreach (var product in products)
+        {
+            <article class="product-card">
+                <h3>@product.Name</h3>
+                <p class="muted">@product.Category.Name</p>
+                <p>@product.Description</p>
+                <p class="price">@product.Price.ToString("C")</p>
+                <p class="stock">In stock: @product.Stock</p>
+                <button class="btn btn-primary"
+                        disabled="@(product.Stock <= 0)"
+                        @onclick="() => AddToCart(product)">
+                    Add to cart
+                </button>
+            </article>
+        }
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <p class="success">@message</p>
+}
+
+@code {
+    private List<Category> categories = [];
+    private List<Product> products = [];
+    private int SelectedCategoryId;
+    private string? message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Db.Categories
+            .Where(c => c.IsActive)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        var query = Db.Products
+            .Include(p => p.Category)
+            .Where(p => p.IsActive && p.Stock > 0);
+
+        if (SelectedCategoryId > 0)
+        {
+            query = query.Where(p => p.CategoryId == SelectedCategoryId);
+        }
+
+        products = await query.OrderBy(p => p.Name).ToListAsync();
+    }
+
+    private void AddToCart(Product product)
+    {
+        Cart.Add(product.Id, product.Name, product.Price);
+        message = $"{product.Name} added to cart.";
+    }
+}

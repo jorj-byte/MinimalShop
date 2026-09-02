@@ -1,0 +1,48 @@
+@page "/order/{OrderId:int}"
+@rendermode InteractiveServer
+@inject OrderService Orders
+
+<PageTitle>Order confirmation</PageTitle>
+
+<h1>Order placed</h1>
+
+@if (order is null)
+{
+    <p>Order not found.</p>
+}
+else
+{
+    <p>Thank you, @order.CustomerName! Your order <strong>#@order.Id</strong> was received.</p>
+    <p>Status: <span class="badge">@order.Status</span></p>
+    <p>Total: @order.TotalAmount.ToString("C")</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in order.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.LineTotal.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="shop" class="btn btn-primary">Continue shopping</a>
+}
+
+@code {
+    [Parameter] public int OrderId { get; set; }
+    private Order? order;
+
+    protected override async Task OnInitializedAsync() =>
+        order = await Orders.GetOrderAsync(OrderId);
+}

@@ -54,16 +54,16 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     private static void SeedData(ModelBuilder modelBuilder)
     {
-        var electronics = new Category { Id = 1, Name = "Electronics", Description = "Gadgets and devices" };
-        var home = new Category { Id = 2, Name = "Home", Description = "Home and kitchen" };
+        var electronics = new Category { Id = 1, Name = "لوازم دیجیتال", Description = "گجت‌ها و لوازم الکترونیکی" };
+        var home = new Category { Id = 2, Name = "خانه و آشپزخانه", Description = "لوازم خانگی و آشپزخانه" };
 
         modelBuilder.Entity<Category>().HasData(electronics, home);
 
         modelBuilder.Entity<Product>().HasData(
-            new Product { Id = 1, Name = "Wireless Headphones", Description = "Noise cancelling", Price = 79.99m, Stock = 25, CategoryId = 1 },
-            new Product { Id = 2, Name = "Smart Watch", Description = "Fitness tracking", Price = 149.99m, Stock = 15, CategoryId = 1 },
-            new Product { Id = 3, Name = "Coffee Maker", Description = "Programmable brew", Price = 59.99m, Stock = 30, CategoryId = 2 },
-            new Product { Id = 4, Name = "Desk Lamp", Description = "LED adjustable", Price = 29.99m, Stock = 40, CategoryId = 2 }
+            new Product { Id = 1, Name = "هدفون بی‌سیم", Description = "حذف نویز فعال", Price = 2_990_000m, Stock = 25, CategoryId = 1 },
+            new Product { Id = 2, Name = "ساعت هوشمند", Description = "پایش سلامت و ورزش", Price = 5_490_000m, Stock = 15, CategoryId = 1 },
+            new Product { Id = 3, Name = "قهوه‌ساز", Description = "برنامه‌ریزی خودکار", Price = 3_200_000m, Stock = 30, CategoryId = 2 },
+            new Product { Id = 4, Name = "چراغ مطالعه", Description = "LED با نور قابل تنظیم", Price = 890_000m, Stock = 40, CategoryId = 2 }
         );
     }
 }

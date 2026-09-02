@@ -1,49 +1,54 @@
 @page "/cart"
 @rendermode InteractiveServer
-@inject CartService Cart
+@inject CartService CartService
 @inject NavigationManager Navigation
 
-<PageTitle>Cart</PageTitle>
+<PageTitle>سبد خرید</PageTitle>
 
-<h1>Your cart</h1>
+<h1 class="page-title">سبد خرید</h1>
 
-@if (Cart.Items.Count == 0)
+@if (CartService.Items.Count == 0)
 {
-    <p>Your cart is empty. <a href="shop">Continue shopping</a></p>
+    <div class="empty-state">
+        <p>سبد خرید شما خالی است.</p>
+        <a href="shop">بازگشت به فروشگاه</a>
+    </div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Cart.Items)
-            {
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>
-                        <input type="number" min="1" value="@item.Quantity"
-                               @onchange="e => UpdateQty(item.ProductId, e)" />
-                    </td>
-                    <td>@item.LineTotal.ToString("C")</td>
-                    <td>
-                        <button class="btn btn-link" @onclick="() => Cart.Remove(item.ProductId)">Remove</button>
-                    </td>
+                    <th>محصول</th>
+                    <th>قیمت واحد</th>
+                    <th>تعداد</th>
+                    <th>جمع</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in CartService.Items)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@PersianFormat.Price(item.Price)</td>
+                        <td>
+                            <input type="number" min="1" value="@item.Quantity" class="form-control" style="width:80px"
+                                   @onchange="e => UpdateQty(item.ProductId, e)" />
+                        </td>
+                        <td>@PersianFormat.Price(item.LineTotal)</td>
+                        <td>
+                            <button class="btn btn-link" @onclick="() => CartService.Remove(item.ProductId)">حذف</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-    <p class="cart-total"><strong>Total: @Cart.Total.ToString("C")</strong></p>
-    <button class="btn btn-primary" @onclick="GoCheckout">Checkout</button>
+    <p class="cart-total">جمع کل: <strong>@PersianFormat.Price(CartService.Total)</strong></p>
+    <button class="btn btn-primary" @onclick="GoCheckout">ادامه و ثبت سفارش</button>
 }
 
 @code {
@@ -51,7 +56,7 @@ else
     {
         if (int.TryParse(e.Value?.ToString(), out var qty))
         {
-            Cart.UpdateQuantity(productId, qty);
+            CartService.UpdateQuantity(productId, qty);
         }
     }
 

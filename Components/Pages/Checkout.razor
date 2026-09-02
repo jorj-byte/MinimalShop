@@ -1,49 +1,54 @@
 @page "/checkout"
 @rendermode InteractiveServer
-@inject CartService Cart
-@inject OrderService Orders
+@inject CartService CartService
+@inject OrderService OrderService
 @inject NavigationManager Navigation
 
-<PageTitle>Checkout</PageTitle>
+<PageTitle>ثبت سفارش</PageTitle>
 
-<h1>Checkout</h1>
+<h1 class="page-title">ثبت سفارش</h1>
 
-@if (Cart.Items.Count == 0)
+@if (CartService.Items.Count == 0)
 {
-    <p>Your cart is empty. <a href="shop">Go to shop</a></p>
+    <div class="empty-state">
+        <p>سبد خرید شما خالی است.</p>
+        <a href="shop">رفتن به فروشگاه</a>
+    </div>
 }
 else
 {
-    <EditForm Model="model" OnValidSubmit="PlaceOrder">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <div class="checkout-box">
+        <EditForm Model="model" OnValidSubmit="PlaceOrder">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="form-group">
-            <label>Name</label>
-            <InputText @bind-Value="model.Name" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <InputText @bind-Value="model.Email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Phone</label>
-            <InputText @bind-Value="model.Phone" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Shipping address</label>
-            <InputTextArea @bind-Value="model.Address" class="form-control" rows="3" />
-        </div>
+            <div class="form-group">
+                <label>نام و نام خانوادگی</label>
+                <InputText @bind-Value="model.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>ایمیل</label>
+                <InputText @bind-Value="model.Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>شماره موبایل</label>
+                <InputText @bind-Value="model.Phone" class="form-control" placeholder="۰۹۱۲..." />
+            </div>
+            <div class="form-group">
+                <label>آدرس تحویل</label>
+                <InputTextArea @bind-Value="model.Address" class="form-control" rows="3" />
+            </div>
 
-        <p class="cart-total">Order total: <strong>@Cart.Total.ToString("C")</strong></p>
+            <p class="cart-total">مبلغ قابل پرداخت: <strong>@PersianFormat.Price(CartService.Total)</strong></p>
 
-        @if (!string.IsNullOrEmpty(error))
-        {
-            <p class="error">@error</p>
-        }
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <p class="error">@error</p>
+            }
 
-        <button class="btn btn-primary" type="submit" disabled="@submitting">Place order</button>
-    </EditForm>
+            <button class="btn btn-primary" type="submit" disabled="@submitting">ثبت سفارش</button>
+        </EditForm>
+    </div>
 }
 
 @code {
@@ -56,10 +61,10 @@ else
         submitting = true;
         error = null;
 
-        var order = await Orders.PlaceOrderAsync(model.Name, model.Email, model.Phone, model.Address);
+        var order = await OrderService.PlaceOrderAsync(model.Name, model.Email, model.Phone, model.Address);
         if (order is null)
         {
-            error = "Could not place order. Check stock and try again.";
+            error = "ثبت سفارش ممکن نشد. موجودی کالا را بررسی کنید.";
             submitting = false;
             return;
         }
@@ -69,11 +74,11 @@ else
 
     private sealed class CheckoutModel
     {
-        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "نام الزامی است")]
         public string Name { get; set; } = string.Empty;
 
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.EmailAddress]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "ایمیل الزامی است")]
+        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "ایمیل معتبر نیست")]
         public string Email { get; set; } = string.Empty;
 
         public string? Phone { get; set; }

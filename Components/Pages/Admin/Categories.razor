@@ -4,7 +4,7 @@
 @inject AdminSession Session
 @inject NavigationManager Navigation
 
-<PageTitle>Manage categories</PageTitle>
+<PageTitle>مدیریت دسته‌بندی</PageTitle>
 
 @if (!Session.IsAuthenticated)
 {
@@ -14,55 +14,57 @@ else
 {
     <AdminNav />
 
-    <h1>Categories</h1>
+    <h1 class="page-title">دسته‌بندی‌ها</h1>
 
     <section class="admin-form">
-        <h2>@(editingId is null ? "Add category" : "Edit category")</h2>
+        <h2>@(editingId is null ? "افزودن دسته" : "ویرایش دسته")</h2>
         <EditForm Model="form" OnValidSubmit="Save">
             <div class="form-group">
-                <label>Name</label>
+                <label>نام</label>
                 <InputText @bind-Value="form.Name" class="form-control" />
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label>توضیحات</label>
                 <InputText @bind-Value="form.Description" class="form-control" />
             </div>
             <div class="form-group">
                 <label>
-                    <InputCheckbox @bind-Value="form.IsActive" /> Active
+                    <InputCheckbox @bind-Value="form.IsActive" /> فعال
                 </label>
             </div>
-            <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">ذخیره</button>
             @if (editingId is not null)
             {
-                <button class="btn btn-secondary" type="button" @onclick="CancelEdit">Cancel</button>
+                <button class="btn btn-secondary" type="button" @onclick="CancelEdit">انصراف</button>
             }
         </EditForm>
     </section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Active</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var category in categories)
-            {
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@category.Name</td>
-                    <td>@category.Description</td>
-                    <td>@(category.IsActive ? "Yes" : "No")</td>
-                    <td>
-                        <button class="btn btn-link" @onclick="() => Edit(category)">Edit</button>
-                    </td>
+                    <th>نام</th>
+                    <th>توضیحات</th>
+                    <th>فعال</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var category in categories)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>@category.Description</td>
+                        <td>@(category.IsActive ? "بله" : "خیر")</td>
+                        <td>
+                            <button class="btn btn-link" @onclick="() => Edit(category)">ویرایش</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {

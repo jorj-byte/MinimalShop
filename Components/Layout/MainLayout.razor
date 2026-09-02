@@ -1,19 +1,17 @@
 @inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
+<div class="site">
+    <NavMenu />
+    <main class="main-content">
+        @Body
     </main>
+    <footer class="site-footer">
+        <p>مینیمال‌شاپ — فروشگاه آنلاین ساده</p>
+    </footer>
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+    خطایی رخ داده است.
+    <a href="." class="reload">بارگذاری مجدد</a>
+    <span class="dismiss">✕</span>
 </div>

@@ -1,11 +1,11 @@
 @page "/admin/orders"
 @page "/admin/orders/{OrderId:int}"
 @rendermode InteractiveServer
-@inject OrderService Orders
+@inject OrderService OrderService
 @inject AdminSession Session
 @inject NavigationManager Navigation
 
-<PageTitle>Manage orders</PageTitle>
+<PageTitle>مدیریت سفارش‌ها</PageTitle>
 
 @if (!Session.IsAuthenticated)
 {
@@ -15,82 +15,86 @@ else
 {
     <AdminNav />
 
-    <h1>Orders</h1>
+    <h1 class="page-title">سفارش‌ها</h1>
 
     @if (selectedOrder is not null)
     {
         <section class="admin-detail">
-            <h2>Order #@selectedOrder.Id</h2>
-            <p><strong>Customer:</strong> @selectedOrder.CustomerName (@selectedOrder.CustomerEmail)</p>
-            <p><strong>Phone:</strong> @selectedOrder.CustomerPhone</p>
-            <p><strong>Address:</strong> @selectedOrder.ShippingAddress</p>
-            <p><strong>Total:</strong> @selectedOrder.TotalAmount.ToString("C")</p>
-            <p><strong>Created:</strong> @selectedOrder.CreatedAt.ToLocalTime()</p>
+            <h2>سفارش @PersianFormat.Number(selectedOrder.Id)</h2>
+            <p><strong>مشتری:</strong> @selectedOrder.CustomerName (@selectedOrder.CustomerEmail)</p>
+            <p><strong>موبایل:</strong> @selectedOrder.CustomerPhone</p>
+            <p><strong>آدرس:</strong> @selectedOrder.ShippingAddress</p>
+            <p><strong>مبلغ کل:</strong> @PersianFormat.Price(selectedOrder.TotalAmount)</p>
+            <p><strong>تاریخ:</strong> @selectedOrder.CreatedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm", PersianFormat.Culture)</p>
 
             <div class="form-group">
-                <label>Status</label>
+                <label>وضعیت</label>
                 <select @bind="selectedStatus" class="form-control">
                     @foreach (var status in Enum.GetValues<OrderStatus>())
                     {
-                        <option value="@status">@status</option>
+                        <option value="@status">@PersianFormat.StatusLabel(status)</option>
                     }
                 </select>
             </div>
-            <button class="btn btn-primary" @onclick="UpdateStatus">Update status</button>
-            <button class="btn btn-secondary" @onclick="ClearSelection">Back to list</button>
+            <button class="btn btn-primary" @onclick="UpdateStatus">به‌روزرسانی وضعیت</button>
+            <button class="btn btn-secondary" @onclick="ClearSelection">بازگشت</button>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Unit</th>
-                        <th>Line</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in selectedOrder.Items)
-                    {
+            <div class="table-wrap" style="margin-top:1rem">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>@item.ProductName</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.UnitPrice.ToString("C")</td>
-                            <td>@item.LineTotal.ToString("C")</td>
+                            <th>محصول</th>
+                            <th>تعداد</th>
+                            <th>قیمت واحد</th>
+                            <th>جمع</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in selectedOrder.Items)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@PersianFormat.Number(item.Quantity)</td>
+                                <td>@PersianFormat.Price(item.UnitPrice)</td>
+                                <td>@PersianFormat.Price(item.LineTotal)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </section>
     }
     else
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Customer</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var order in orderList)
-                {
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@order.Id</td>
-                        <td>@order.CustomerName</td>
-                        <td>@order.TotalAmount.ToString("C")</td>
-                        <td>@order.Status</td>
-                        <td>@order.CreatedAt.ToLocalTime()</td>
-                        <td>
-                            <a href="@($"/admin/orders/{order.Id}")">View</a>
-                        </td>
+                        <th>شماره</th>
+                        <th>مشتری</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var order in orderList)
+                    {
+                        <tr>
+                            <td>@PersianFormat.Number(order.Id)</td>
+                            <td>@order.CustomerName</td>
+                            <td>@PersianFormat.Price(order.TotalAmount)</td>
+                            <td><span class="badge">@PersianFormat.StatusLabel(order.Status)</span></td>
+                            <td>@order.CreatedAt.ToLocalTime().ToString("yyyy/MM/dd", PersianFormat.Culture)</td>
+                            <td>
+                                <a href="@($"/admin/orders/{order.Id}")">مشاهده</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 }
 
@@ -103,10 +107,10 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        orderList = await Orders.GetOrdersAsync();
+        orderList = await OrderService.GetOrdersAsync();
         if (OrderId is int id)
         {
-            selectedOrder = await Orders.GetOrderAsync(id);
+            selectedOrder = await OrderService.GetOrderAsync(id);
             if (selectedOrder is not null)
             {
                 selectedStatus = selectedOrder.Status;
@@ -121,9 +125,9 @@ else
             return;
         }
 
-        await Orders.UpdateStatusAsync(selectedOrder.Id, selectedStatus);
-        selectedOrder = await Orders.GetOrderAsync(selectedOrder.Id);
-        orderList = await Orders.GetOrdersAsync();
+        await OrderService.UpdateStatusAsync(selectedOrder.Id, selectedStatus);
+        selectedOrder = await OrderService.GetOrderAsync(selectedOrder.Id);
+        orderList = await OrderService.GetOrdersAsync();
     }
 
     private void ClearSelection() => Navigation.NavigateTo("/admin/orders");

@@ -1,42 +1,48 @@
 @page "/order/{OrderId:int}"
 @rendermode InteractiveServer
-@inject OrderService Orders
+@inject OrderService OrderService
 
-<PageTitle>Order confirmation</PageTitle>
+<PageTitle>تأیید سفارش</PageTitle>
 
-<h1>Order placed</h1>
+<h1 class="page-title">سفارش ثبت شد ✓</h1>
 
 @if (order is null)
 {
-    <p>Order not found.</p>
+    <div class="empty-state">
+        <p>سفارش یافت نشد.</p>
+    </div>
 }
 else
 {
-    <p>Thank you, @order.CustomerName! Your order <strong>#@order.Id</strong> was received.</p>
-    <p>Status: <span class="badge">@order.Status</span></p>
-    <p>Total: @order.TotalAmount.ToString("C")</p>
+    <div class="checkout-box">
+        <p>@order.CustomerName عزیز، سفارش شما با شماره <strong>@PersianFormat.Number(order.Id)</strong> ثبت شد.</p>
+        <p>وضعیت: <span class="badge">@PersianFormat.StatusLabel(order.Status)</span></p>
+        <p>مبلغ کل: <strong>@PersianFormat.Price(order.TotalAmount)</strong></p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Qty</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in order.Items)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.LineTotal.ToString("C")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <div class="table-wrap" style="margin-top:1rem">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in order.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@PersianFormat.Number(item.Quantity)</td>
+                            <td>@PersianFormat.Price(item.LineTotal)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-    <a href="shop" class="btn btn-primary">Continue shopping</a>
+        <a href="shop" class="btn btn-primary" style="margin-top:1rem">ادامه خرید</a>
+    </div>
 }
 
 @code {
@@ -44,5 +50,5 @@ else
     private Order? order;
 
     protected override async Task OnInitializedAsync() =>
-        order = await Orders.GetOrderAsync(OrderId);
+        order = await OrderService.GetOrderAsync(OrderId);
 }

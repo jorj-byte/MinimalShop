@@ -5,7 +5,7 @@
 @inject IOptions<AdminSettings> Settings
 @inject NavigationManager Navigation
 
-<PageTitle>Admin login</PageTitle>
+<PageTitle>ورود مدیر</PageTitle>
 
 @if (Session.IsAuthenticated)
 {
@@ -13,18 +13,20 @@
 }
 else
 {
-    <h1>Admin login</h1>
-    <EditForm Model="model" OnValidSubmit="Login">
-        <div class="form-group">
-            <label>Password</label>
-            <InputText type="password" @bind-Value="model.Password" class="form-control" />
-        </div>
-        @if (!string.IsNullOrEmpty(error))
-        {
-            <p class="error">@error</p>
-        }
-        <button class="btn btn-primary" type="submit">Login</button>
-    </EditForm>
+    <h1 class="page-title">ورود به پنل مدیریت</h1>
+    <div class="checkout-box" style="max-width:400px">
+        <EditForm Model="model" OnValidSubmit="Login">
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <InputText type="password" @bind-Value="model.Password" class="form-control" />
+            </div>
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <p class="error">@error</p>
+            }
+            <button class="btn btn-primary" type="submit">ورود</button>
+        </EditForm>
+    </div>
 }
 
 @code {
@@ -39,7 +41,7 @@ else
             return;
         }
 
-        error = "Invalid password.";
+        error = "رمز عبور اشتباه است.";
     }
 
     private sealed class LoginModel

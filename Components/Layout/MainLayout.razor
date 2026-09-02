@@ -1,17 +1,23 @@
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
-<div class="site">
-    <NavMenu />
-    <main class="main-content">
-        @Body
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
     </main>
-    <footer class="site-footer">
-        <p>مینیمال‌شاپ — فروشگاه آنلاین ساده</p>
-    </footer>
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
-    خطایی رخ داده است.
-    <a href="." class="reload">بارگذاری مجدد</a>
-    <span class="dismiss">✕</span>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
 </div>

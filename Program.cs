@@ -1,6 +1,7 @@
 using MinimalShop;
 using MinimalShop.Components;
 using MinimalShop.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ var app = builder.Build();
 
 await DatabaseInitializer.InitializeAsync(app.Services);
 
+app.UseForwardedHeaders();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -21,12 +24,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 
-if (app.Environment.IsDevelopment())
-    app.UseHttpsRedirection();
-
+app.UseHttpsRedirection();
 app.UseAntiforgery();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapStaticAssets();
+app.MapAdminAuthEndpoints();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

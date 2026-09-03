@@ -18,11 +18,14 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "8090:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
       ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=minimalshop;Username=shop;Password=${POSTGRES_PASSWORD:-shop123}
       Admin__Password: ${ADMIN_PASSWORD:-changeme}
+      Admin__MaxFailedAttempts: "5"
+      Admin__LockoutMinutes: "15"
       Shop__StoreName: ${SHOP_NAME:-MinimalShop}
     depends_on:
       db:

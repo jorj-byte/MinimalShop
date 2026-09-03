@@ -1,18 +1,13 @@
 @page "/admin/orders/{OrderId:int}"
+@attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
-@inject AdminAuthService Auth
 @inject ShopService Shop
-@inject NavigationManager Navigation
 
-<PageTitle>Order details - Admin</PageTitle>
+<PageTitle>جزئیات سفارش - مدیریت</PageTitle>
 
-@if (!Auth.IsAuthenticated)
+@if (_order is null)
 {
-    Navigation.NavigateTo("/admin");
-}
-else if (_order is null)
-{
-    <p>Order not found.</p>
+    <p>سفارش یافت نشد.</p>
 }
 else
 {
@@ -21,10 +16,10 @@ else
     <div class="d-flex justify-content-between align-items-start mb-3">
         <div>
             <h1 class="h3">@_order.OrderNumber</h1>
-            <p class="text-muted mb-0">Placed @_order.CreatedAt.ToLocalTime().ToString("f")</p>
+            <p class="text-muted mb-0">ثبت‌شده در @_order.CreatedAt.ToLocalTime().ToString("f")</p>
         </div>
         <div style="min-width: 220px;">
-            <label class="form-label">Status</label>
+            <label class="form-label">وضعیت</label>
             <select class="form-select" @bind="_selectedStatus" @bind:after="UpdateStatusAsync">
                 @foreach (var status in Enum.GetValues<OrderStatus>())
                 {
@@ -38,7 +33,7 @@ else
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="h6">Customer</h2>
+                    <h2 class="h6">مشتری</h2>
                     <p class="mb-1"><strong>@_order.CustomerName</strong></p>
                     <p class="mb-1">@_order.CustomerEmail</p>
                     @if (!string.IsNullOrWhiteSpace(_order.CustomerPhone))
@@ -52,26 +47,26 @@ else
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="h6">Items</h2>
+                    <h2 class="h6">اقلام</h2>
                     <ul class="list-unstyled mb-0">
                         @foreach (var item in _order.Items)
                         {
                             <li class="d-flex justify-content-between py-1 border-bottom">
-                                <span>@item.ProductName x @item.Quantity</span>
-                                <span>@item.LineTotal.ToString("C")</span>
+                                <span>@item.ProductName × @item.Quantity</span>
+                                <span>@item.LineTotal.ToString("N0") تومان</span>
                             </li>
                         }
                     </ul>
                     <div class="d-flex justify-content-between fw-bold mt-3">
-                        <span>Total</span>
-                        <span>@_order.Total.ToString("C")</span>
+                        <span>جمع</span>
+                        <span>@_order.Total.ToString("N0") تومان</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <a class="btn btn-link ps-0 mt-3" href="admin/orders">Back to orders</a>
+    <a class="btn btn-link ps-0 mt-3" href="admin/orders">بازگشت به سفارش‌ها</a>
 }
 
 @code {

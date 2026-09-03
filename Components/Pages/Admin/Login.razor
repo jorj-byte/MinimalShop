@@ -1,50 +1,49 @@
 @page "/admin"
+@attribute [AllowAnonymous]
 @rendermode InteractiveServer
-@inject AdminAuthService Auth
+@using Microsoft.AspNetCore.Authorization
 @inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthState
 
-<PageTitle>Admin</PageTitle>
+<PageTitle>ورود مدیر</PageTitle>
 
-@if (Auth.IsAuthenticated)
-{
-    Navigation.NavigateTo("/admin/orders");
-}
-else
-{
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <h1 class="h3 mb-3">Admin login</h1>
-            <EditForm Model="_model" OnValidSubmit="LoginAsync">
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <InputText type="password" class="form-control" @bind-Value="_model.Password" />
-                </div>
-                @if (!string.IsNullOrWhiteSpace(_error))
-                {
-                    <div class="alert alert-danger py-2">@_error</div>
-                }
-                <button class="btn btn-primary">Sign in</button>
-            </EditForm>
-        </div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <h1 class="h3 mb-3">ورود به پنل مدیریت</h1>
+        <p class="text-muted small mb-3">پس از ۵ تلاش ناموفق، ورود برای ۱۵ دقیقه قفل می‌شود.</p>
+
+        @if (!string.IsNullOrWhiteSpace(_error))
+        {
+            <div class="alert alert-danger py-2">@_error</div>
+        }
+
+        <form method="post" action="/account/login">
+            <div class="mb-3">
+                <label class="form-label" for="password">رمز عبور</label>
+                <input id="password" name="password" type="password" class="form-control" required autocomplete="current-password" />
+            </div>
+            <button class="btn btn-primary" type="submit">ورود</button>
+        </form>
     </div>
-}
+</div>
 
 @code {
-    private readonly LoginModel _model = new();
     private string? _error;
 
-    private Task LoginAsync()
+    protected override async Task OnInitializedAsync()
     {
-        if (Auth.TryLogin(_model.Password))
-            Navigation.NavigateTo("/admin/orders");
-        else
-            _error = "Invalid password.";
+        var state = await AuthState.GetAuthenticationStateAsync();
+        if (state.User.Identity?.IsAuthenticated == true && state.User.IsInRole("Admin"))
+        {
+            Navigation.NavigateTo("/admin/orders", forceLoad: true);
+            return;
+        }
 
-        return Task.CompletedTask;
-    }
-
-    private sealed class LoginModel
-    {
-        public string Password { get; set; } = string.Empty;
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query)
+            .TryGetValue("error", out var error))
+        {
+            _error = error.ToString();
+        }
     }
 }

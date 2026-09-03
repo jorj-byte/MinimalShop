@@ -1,19 +1,10 @@
-<div class="mb-4">
-    <ul class="nav nav-pills gap-2 flex-wrap">
-        <li class="nav-item"><a class="nav-link" href="admin/orders">Orders</a></li>
-        <li class="nav-item"><a class="nav-link" href="admin/categories">Categories</a></li>
-        <li class="nav-item"><a class="nav-link" href="admin/products">Products</a></li>
-        <li class="nav-item ms-auto"><a class="nav-link text-danger" href="" @onclick="Logout" @onclick:preventDefault>Logout</a></li>
-    </ul>
-</div>
+@using Microsoft.AspNetCore.Authorization
 
-@code {
-    [Inject] private AdminAuthService Auth { get; set; } = default!;
-    [Inject] private NavigationManager Navigation { get; set; } = default!;
-
-    private void Logout()
-    {
-        Auth.Logout();
-        Navigation.NavigateTo("/admin");
-    }
-}
+<nav class="admin-nav mb-3 d-flex gap-3 align-items-center">
+    <a href="/admin/categories">دسته‌بندی‌ها</a>
+    <a href="/admin/products">محصولات</a>
+    <a href="/admin/orders">سفارش‌ها</a>
+    <form method="post" action="/account/logout" class="ms-auto mb-0">
+        <button class="btn btn-link" type="submit">خروج</button>
+    </form>
+</nav>

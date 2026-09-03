@@ -1,69 +1,91 @@
 # MinimalShop
 
-A lightweight .NET 10 Blazor Server shop with **category management**, **product catalog**, **cart/checkout**, and **order management**. Designed to run on a minimal Hetzner VPS using Docker and PostgreSQL.
+A lightweight .NET 10 Blazor Server shop with **category management**, **product catalog**, **cart/checkout**, and **order management**. Built to run on a small Hetzner VPS with Docker.
 
 ## Features
 
-- Public storefront with category filter
-- Shopping cart and checkout
-- Admin area for categories, products, and orders
-- PostgreSQL with EF Core migrations
-- Docker Compose for one-command deployment
-
-## Requirements
-
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (local development)
-- Docker + Docker Compose (production on Hetzner)
+- Public storefront (home, shop, cart, checkout)
+- Admin panel (`/admin`) for categories, products, and orders
+- PostgreSQL database with EF Core migrations
+- Docker Compose deployment (app + Postgres)
 
 ## Local development
 
-1. Start PostgreSQL:
+Requirements: .NET 10 SDK, PostgreSQL (or use Docker for the database only).
 
 ```bash
+# Start Postgres only
 docker compose up db -d
-```
 
-2. Run the app:
-
-```bash
-dotnet restore
+# Run the app
 dotnet run
 ```
 
-3. Open http://localhost:5080
+Open http://localhost:5000 (or the port shown in the terminal).
 
-Default admin password: `changeme` (set `Admin:Password` in `appsettings.json` or environment variables).
+Default admin password: `changeme` (set `Admin:Password` in `appsettings.json`).
 
-## Deploy on Hetzner VPS
+## Deploy on Hetzner (minimal VPS)
 
-1. Install Docker on your server.
-2. Clone this repo to the server.
-3. Set a strong admin password:
+1. SSH into your server and install Docker + Docker Compose plugin.
+2. Clone or copy this project to the server.
+3. Create `.env` from the example and set strong passwords:
 
 ```bash
-export Admin__Password='your-secure-password'
+cp .env.example .env
+nano .env
 ```
 
-4. Start everything:
+4. Build and start:
 
 ```bash
 docker compose up -d --build
 ```
 
-5. Open `http://YOUR_SERVER_IP:8080`
+5. Open `http://YOUR_SERVER_IP:8080`.
 
-For production, put Nginx or Caddy in front for HTTPS and reverse proxy to port 8080.
+### Optional: Nginx + HTTPS
+
+Put Nginx in front of the app on port 8080 and use Certbot for TLS. Example server block:
+
+```nginx
+server {
+    listen 80;
+    server_name shop.example.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Blazor Server needs WebSocket support (`Upgrade` headers above).
+
+## Configuration
+
+| Setting | Environment variable | Default |
+|---------|---------------------|---------|
+| Database | `ConnectionStrings__DefaultConnection` | see `appsettings.json` |
+| Admin password | `Admin__Password` | `changeme` |
+| Store name | `Shop__StoreName` | `MinimalShop` |
 
 ## Project structure
 
-- `Components/Pages/` — storefront and admin UI
 - `Models/` — Category, Product, Order entities
-- `Data/` — EF Core DbContext
-- `Services/` — cart, orders, admin session
-- `Migrations/` — database schema
+- `Data/` — EF Core `ShopDbContext`, migrations, seed data
+- `Services/` — Shop, cart, and admin auth services
+- `Components/Pages/` — Storefront and admin UI
 
-## Security notes
+## Commands
 
-- Change the default admin password before going live.
-- Use HTTPS in production.
-- Restrict port 5432 so PostgreSQL is not exposed publicly (remove the `ports` mapping on `db` in production).
+```bash
+dotnet ef migrations add MigrationName
+dotnet ef database update
+dotnet publish -c Release -o ./publish
+```

@@ -1,30 +1,17 @@
-using Microsoft.EntityFrameworkCore;
+using MinimalShop;
 using MinimalShop.Components;
 using MinimalShop.Data;
-using MinimalShop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddShopServices();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.Configure<AdminSettings>(
-    builder.Configuration.GetSection(AdminSettings.SectionName));
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddScoped<CartService>();
-builder.Services.AddScoped<AdminSession>();
-builder.Services.AddScoped<OrderService>();
-
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await db.Database.MigrateAsync();
-}
+await DatabaseInitializer.InitializeAsync(app.Services);
 
 if (!app.Environment.IsDevelopment())
 {
@@ -32,7 +19,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+
+if (app.Environment.IsDevelopment())
+    app.UseHttpsRedirection();
+
 app.UseAntiforgery();
 
 app.MapStaticAssets();

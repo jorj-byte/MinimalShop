@@ -1,87 +1,132 @@
 @page "/checkout"
 @rendermode InteractiveServer
 @inject CartService CartService
-@inject OrderService OrderService
+@inject ShopService ShopService
 @inject NavigationManager Navigation
 
-<PageTitle>ثبت سفارش</PageTitle>
+<PageTitle>Checkout</PageTitle>
 
-<h1 class="page-title">ثبت سفارش</h1>
+<h1 class="mb-3">Checkout</h1>
 
-@if (CartService.Items.Count == 0)
+@if (CartService.Lines.Count == 0 && !_orderPlaced)
 {
-    <div class="empty-state">
-        <p>سبد خرید شما خالی است.</p>
-        <a href="shop">رفتن به فروشگاه</a>
+    <p>Your cart is empty.</p>
+    <a class="btn btn-primary" href="shop">Go to shop</a>
+}
+else if (_orderPlaced && _order is not null)
+{
+    <div class="alert alert-success">
+        <h2 class="h5">Order placed!</h2>
+        <p>Order <strong>@_order.OrderNumber</strong> for @_order.Total.ToString("C") was received.</p>
+        <a class="btn btn-primary" href="shop">Continue shopping</a>
     </div>
 }
 else
 {
-    <div class="checkout-box">
-        <EditForm Model="model" OnValidSubmit="PlaceOrder">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <EditForm Model="_model" OnValidSubmit="PlaceOrderAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-            <div class="form-group">
-                <label>نام و نام خانوادگی</label>
-                <InputText @bind-Value="model.Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>ایمیل</label>
-                <InputText @bind-Value="model.Email" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>شماره موبایل</label>
-                <InputText @bind-Value="model.Phone" class="form-control" placeholder="۰۹۱۲..." />
-            </div>
-            <div class="form-group">
-                <label>آدرس تحویل</label>
-                <InputTextArea @bind-Value="model.Address" class="form-control" rows="3" />
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Full name</label>
+                    <InputText class="form-control" @bind-Value="_model.CustomerName" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <InputText class="form-control" @bind-Value="_model.CustomerEmail" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone (optional)</label>
+                    <InputText class="form-control" @bind-Value="_model.CustomerPhone" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Shipping address</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_model.ShippingAddress" />
+                </div>
 
-            <p class="cart-total">مبلغ قابل پرداخت: <strong>@PersianFormat.Price(CartService.Total)</strong></p>
+                @if (!string.IsNullOrWhiteSpace(_error))
+                {
+                    <div class="alert alert-danger">@_error</div>
+                }
 
-            @if (!string.IsNullOrEmpty(error))
-            {
-                <p class="error">@error</p>
-            }
-
-            <button class="btn btn-primary" type="submit" disabled="@submitting">ثبت سفارش</button>
-        </EditForm>
+                <button class="btn btn-success" disabled="@_submitting">
+                    @(_submitting ? "Placing order..." : $"Place order ({CartService.Subtotal:C})")
+                </button>
+            </EditForm>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h6">Order summary</h2>
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var line in CartService.Lines)
+                        {
+                            <li class="d-flex justify-content-between small py-1 border-bottom">
+                                <span>@line.Name x @line.Quantity</span>
+                                <span>@line.LineTotal.ToString("C")</span>
+                            </li>
+                        }
+                    </ul>
+                    <div class="d-flex justify-content-between fw-bold mt-3">
+                        <span>Total</span>
+                        <span>@CartService.Subtotal.ToString("C")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 
 @code {
-    private CheckoutModel model = new();
-    private string? error;
-    private bool submitting;
+    private readonly CheckoutModel _model = new();
+    private bool _submitting;
+    private bool _orderPlaced;
+    private string? _error;
+    private Order? _order;
 
-    private async Task PlaceOrder()
+    private async Task PlaceOrderAsync()
     {
-        submitting = true;
-        error = null;
+        _submitting = true;
+        _error = null;
 
-        var order = await OrderService.PlaceOrderAsync(model.Name, model.Email, model.Phone, model.Address);
-        if (order is null)
+        try
         {
-            error = "ثبت سفارش ممکن نشد. موجودی کالا را بررسی کنید.";
-            submitting = false;
-            return;
-        }
+            _order = await ShopService.PlaceOrderAsync(
+                _model.CustomerName,
+                _model.CustomerEmail,
+                _model.CustomerPhone,
+                _model.ShippingAddress,
+                CartService.Lines);
 
-        Navigation.NavigateTo($"/order/{order.Id}");
+            CartService.Clear();
+            _orderPlaced = true;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _submitting = false;
+        }
     }
 
     private sealed class CheckoutModel
     {
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "نام الزامی است")]
-        public string Name { get; set; } = string.Empty;
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.StringLength(120)]
+        public string CustomerName { get; set; } = string.Empty;
 
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "ایمیل الزامی است")]
-        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "ایمیل معتبر نیست")]
-        public string Email { get; set; } = string.Empty;
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.EmailAddress]
+        public string CustomerEmail { get; set; } = string.Empty;
 
-        public string? Phone { get; set; }
-        public string? Address { get; set; }
+        public string? CustomerPhone { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.StringLength(500)]
+        public string ShippingAddress { get; set; } = string.Empty;
     }
 }

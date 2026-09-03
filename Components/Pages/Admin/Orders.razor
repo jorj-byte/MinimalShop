@@ -1,134 +1,56 @@
 @page "/admin/orders"
-@page "/admin/orders/{OrderId:int}"
 @rendermode InteractiveServer
-@inject OrderService OrderService
-@inject AdminSession Session
+@inject AdminAuthService Auth
+@inject ShopService Shop
 @inject NavigationManager Navigation
 
-<PageTitle>مدیریت سفارش‌ها</PageTitle>
+<PageTitle>Orders - Admin</PageTitle>
 
-@if (!Session.IsAuthenticated)
+@if (!Auth.IsAuthenticated)
 {
-    Navigation.NavigateTo("/admin/login");
+    Navigation.NavigateTo("/admin");
 }
 else
 {
     <AdminNav />
 
-    <h1 class="page-title">سفارش‌ها</h1>
+    <h1 class="h3 mb-3">Orders</h1>
 
-    @if (selectedOrder is not null)
-    {
-        <section class="admin-detail">
-            <h2>سفارش @PersianFormat.Number(selectedOrder.Id)</h2>
-            <p><strong>مشتری:</strong> @selectedOrder.CustomerName (@selectedOrder.CustomerEmail)</p>
-            <p><strong>موبایل:</strong> @selectedOrder.CustomerPhone</p>
-            <p><strong>آدرس:</strong> @selectedOrder.ShippingAddress</p>
-            <p><strong>مبلغ کل:</strong> @PersianFormat.Price(selectedOrder.TotalAmount)</p>
-            <p><strong>تاریخ:</strong> @selectedOrder.CreatedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm", PersianFormat.Culture)</p>
-
-            <div class="form-group">
-                <label>وضعیت</label>
-                <select @bind="selectedStatus" class="form-control">
-                    @foreach (var status in Enum.GetValues<OrderStatus>())
-                    {
-                        <option value="@status">@PersianFormat.StatusLabel(status)</option>
-                    }
-                </select>
-            </div>
-            <button class="btn btn-primary" @onclick="UpdateStatus">به‌روزرسانی وضعیت</button>
-            <button class="btn btn-secondary" @onclick="ClearSelection">بازگشت</button>
-
-            <div class="table-wrap" style="margin-top:1rem">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>محصول</th>
-                            <th>تعداد</th>
-                            <th>قیمت واحد</th>
-                            <th>جمع</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in selectedOrder.Items)
-                        {
-                            <tr>
-                                <td>@item.ProductName</td>
-                                <td>@PersianFormat.Number(item.Quantity)</td>
-                                <td>@PersianFormat.Price(item.UnitPrice)</td>
-                                <td>@PersianFormat.Price(item.LineTotal)</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    }
-    else
-    {
-        <div class="table-wrap">
-            <table class="table">
-                <thead>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in _orders)
+                {
                     <tr>
-                        <th>شماره</th>
-                        <th>مشتری</th>
-                        <th>مبلغ</th>
-                        <th>وضعیت</th>
-                        <th>تاریخ</th>
-                        <th></th>
+                        <td>@order.OrderNumber</td>
+                        <td>
+                            <div>@order.CustomerName</div>
+                            <small class="text-muted">@order.CustomerEmail</small>
+                        </td>
+                        <td><span class="badge text-bg-secondary">@order.Status</span></td>
+                        <td>@order.Total.ToString("C")</td>
+                        <td>@order.CreatedAt.ToLocalTime().ToString("g")</td>
+                        <td><a class="btn btn-sm btn-outline-primary" href="@($"admin/orders/{order.Id}")">View</a></td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var order in orderList)
-                    {
-                        <tr>
-                            <td>@PersianFormat.Number(order.Id)</td>
-                            <td>@order.CustomerName</td>
-                            <td>@PersianFormat.Price(order.TotalAmount)</td>
-                            <td><span class="badge">@PersianFormat.StatusLabel(order.Status)</span></td>
-                            <td>@order.CreatedAt.ToLocalTime().ToString("yyyy/MM/dd", PersianFormat.Culture)</td>
-                            <td>
-                                <a href="@($"/admin/orders/{order.Id}")">مشاهده</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {
-    [Parameter] public int? OrderId { get; set; }
+    private List<Order> _orders = [];
 
-    private List<Order> orderList = [];
-    private Order? selectedOrder;
-    private OrderStatus selectedStatus;
-
-    protected override async Task OnInitializedAsync()
-    {
-        orderList = await OrderService.GetOrdersAsync();
-        if (OrderId is int id)
-        {
-            selectedOrder = await OrderService.GetOrderAsync(id);
-            if (selectedOrder is not null)
-            {
-                selectedStatus = selectedOrder.Status;
-            }
-        }
-    }
-
-    private async Task UpdateStatus()
-    {
-        if (selectedOrder is null)
-        {
-            return;
-        }
-
-        await OrderService.UpdateStatusAsync(selectedOrder.Id, selectedStatus);
-        selectedOrder = await OrderService.GetOrderAsync(selectedOrder.Id);
-        orderList = await OrderService.GetOrdersAsync();
-    }
-
-    private void ClearSelection() => Navigation.NavigateTo("/admin/orders");
+    protected override async Task OnInitializedAsync() =>
+        _orders = await Shop.GetOrdersAsync();
 }

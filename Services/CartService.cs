@@ -1,9 +1,9 @@
 namespace MinimalShop.Services;
 
-public class CartItem
+public class CartLine
 {
     public int ProductId { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int Quantity { get; set; }
     public decimal LineTotal => Price * Quantity;
@@ -11,50 +11,48 @@ public class CartItem
 
 public class CartService
 {
-    private readonly List<CartItem> _items = [];
+    private readonly Dictionary<int, CartLine> _lines = [];
 
-    public IReadOnlyList<CartItem> Items => _items;
-    public decimal Total => _items.Sum(i => i.LineTotal);
-    public int ItemCount => _items.Sum(i => i.Quantity);
+    public event Action? OnChange;
+
+    public IReadOnlyCollection<CartLine> Lines => _lines.Values;
+    public int ItemCount => _lines.Values.Sum(l => l.Quantity);
+    public decimal Subtotal => _lines.Values.Sum(l => l.LineTotal);
 
     public void Add(int productId, string name, decimal price, int quantity = 1)
     {
-        var existing = _items.FirstOrDefault(i => i.ProductId == productId);
-        if (existing is not null)
-        {
-            existing.Quantity += quantity;
-            return;
-        }
+        if (_lines.TryGetValue(productId, out var line))
+            line.Quantity += quantity;
+        else
+            _lines[productId] = new CartLine { ProductId = productId, Name = name, Price = price, Quantity = quantity };
 
-        _items.Add(new CartItem
-        {
-            ProductId = productId,
-            Name = name,
-            Price = price,
-            Quantity = quantity
-        });
+        Notify();
     }
 
     public void UpdateQuantity(int productId, int quantity)
     {
-        var item = _items.FirstOrDefault(i => i.ProductId == productId);
-        if (item is null)
-        {
+        if (!_lines.TryGetValue(productId, out var line))
             return;
-        }
 
         if (quantity <= 0)
-        {
-            _items.Remove(item);
-        }
+            _lines.Remove(productId);
         else
-        {
-            item.Quantity = quantity;
-        }
+            line.Quantity = quantity;
+
+        Notify();
     }
 
-    public void Remove(int productId) =>
-        _items.RemoveAll(i => i.ProductId == productId);
+    public void Remove(int productId)
+    {
+        if (_lines.Remove(productId))
+            Notify();
+    }
 
-    public void Clear() => _items.Clear();
+    public void Clear()
+    {
+        _lines.Clear();
+        Notify();
+    }
+
+    private void Notify() => OnChange?.Invoke();
 }

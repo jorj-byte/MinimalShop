@@ -1,0 +1,97 @@
+@page "/admin/orders/{OrderId:int}"
+@rendermode InteractiveServer
+@inject AdminAuthService Auth
+@inject ShopService Shop
+@inject NavigationManager Navigation
+
+<PageTitle>Order details - Admin</PageTitle>
+
+@if (!Auth.IsAuthenticated)
+{
+    Navigation.NavigateTo("/admin");
+}
+else if (_order is null)
+{
+    <p>Order not found.</p>
+}
+else
+{
+    <AdminNav />
+
+    <div class="d-flex justify-content-between align-items-start mb-3">
+        <div>
+            <h1 class="h3">@_order.OrderNumber</h1>
+            <p class="text-muted mb-0">Placed @_order.CreatedAt.ToLocalTime().ToString("f")</p>
+        </div>
+        <div style="min-width: 220px;">
+            <label class="form-label">Status</label>
+            <select class="form-select" @bind="_selectedStatus" @bind:after="UpdateStatusAsync">
+                @foreach (var status in Enum.GetValues<OrderStatus>())
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h6">Customer</h2>
+                    <p class="mb-1"><strong>@_order.CustomerName</strong></p>
+                    <p class="mb-1">@_order.CustomerEmail</p>
+                    @if (!string.IsNullOrWhiteSpace(_order.CustomerPhone))
+                    {
+                        <p class="mb-1">@_order.CustomerPhone</p>
+                    }
+                    <p class="mb-0">@_order.ShippingAddress</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h6">Items</h2>
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var item in _order.Items)
+                        {
+                            <li class="d-flex justify-content-between py-1 border-bottom">
+                                <span>@item.ProductName x @item.Quantity</span>
+                                <span>@item.LineTotal.ToString("C")</span>
+                            </li>
+                        }
+                    </ul>
+                    <div class="d-flex justify-content-between fw-bold mt-3">
+                        <span>Total</span>
+                        <span>@_order.Total.ToString("C")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-link ps-0 mt-3" href="admin/orders">Back to orders</a>
+}
+
+@code {
+    [Parameter] public int OrderId { get; set; }
+
+    private Order? _order;
+    private OrderStatus _selectedStatus;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _order = await Shop.GetOrderAsync(OrderId);
+        if (_order is not null)
+            _selectedStatus = _order.Status;
+    }
+
+    private async Task UpdateStatusAsync()
+    {
+        if (_order is null) return;
+
+        await Shop.UpdateOrderStatusAsync(_order.Id, _selectedStatus);
+        _order = await Shop.GetOrderAsync(OrderId);
+    }
+}

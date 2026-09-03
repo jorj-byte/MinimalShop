@@ -1,154 +1,131 @@
 @page "/admin/products"
 @rendermode InteractiveServer
-@inject AppDbContext Db
-@inject AdminSession Session
+@inject AdminAuthService Auth
+@inject ShopService Shop
 @inject NavigationManager Navigation
 
-<PageTitle>مدیریت محصولات</PageTitle>
+<PageTitle>Products - Admin</PageTitle>
 
-@if (!Session.IsAuthenticated)
+@if (!Auth.IsAuthenticated)
 {
-    Navigation.NavigateTo("/admin/login");
+    Navigation.NavigateTo("/admin");
 }
 else
 {
     <AdminNav />
 
-    <h1 class="page-title">محصولات</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Products</h1>
+        <button class="btn btn-primary" @onclick="NewProduct">New product</button>
+    </div>
 
-    <section class="admin-form">
-        <h2>@(editingId is null ? "افزودن محصول" : "ویرایش محصول")</h2>
-        <EditForm Model="form" OnValidSubmit="Save">
-            <div class="form-group">
-                <label>نام</label>
-                <InputText @bind-Value="form.Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>توضیحات</label>
-                <InputText @bind-Value="form.Description" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>قیمت (تومان)</label>
-                <InputNumber @bind-Value="form.Price" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>موجودی</label>
-                <InputNumber @bind-Value="form.Stock" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>دسته‌بندی</label>
-                <InputSelect @bind-Value="form.CategoryId" class="form-control">
-                    @foreach (var category in categories)
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </InputSelect>
-            </div>
-            <div class="form-group">
-                <label>
-                    <InputCheckbox @bind-Value="form.IsActive" /> فعال
-                </label>
-            </div>
-            <button class="btn btn-primary" type="submit">ذخیره</button>
-            @if (editingId is not null)
-            {
-                <button class="btn btn-secondary" type="button" @onclick="CancelEdit">انصراف</button>
-            }
-        </EditForm>
-    </section>
+    @if (!string.IsNullOrWhiteSpace(_message))
+    {
+        <div class="alert alert-info py-2">@_message</div>
+    }
 
-    <div class="table-wrap">
-        <table class="table">
+    <div class="table-responsive mb-4">
+        <table class="table table-striped align-middle">
             <thead>
                 <tr>
-                    <th>نام</th>
-                    <th>دسته</th>
-                    <th>قیمت</th>
-                    <th>موجودی</th>
-                    <th>فعال</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Active</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var product in products)
+                @foreach (var product in _products)
                 {
                     <tr>
                         <td>@product.Name</td>
                         <td>@product.Category.Name</td>
-                        <td>@PersianFormat.Price(product.Price)</td>
-                        <td>@PersianFormat.Number(product.Stock)</td>
-                        <td>@(product.IsActive ? "بله" : "خیر")</td>
-                        <td>
-                            <button class="btn btn-link" @onclick="() => Edit(product)">ویرایش</button>
+                        <td>@product.Price.ToString("C")</td>
+                        <td>@product.Stock</td>
+                        <td>@(product.IsActive ? "Yes" : "No")</td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-secondary me-1" @onclick="() => EditProduct(product)">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteProductAsync(product.Id)">Delete</button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+
+    @if (_editing is not null)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">@(_editing.Id == 0 ? "Create" : "Edit") product</h2>
+                <EditForm Model="_editing" OnValidSubmit="SaveProductAsync">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <InputText class="form-control" @bind-Value="_editing.Name" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Category</label>
+                            <InputSelect class="form-select" @bind-Value="_editing.CategoryId">
+                                @foreach (var category in _categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Price</label>
+                            <InputNumber class="form-control" @bind-Value="_editing.Price" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Stock</label>
+                            <InputNumber class="form-control" @bind-Value="_editing.Stock" />
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                <InputCheckbox class="form-check-input" @bind-Value="_editing.IsActive" />
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <InputTextArea class="form-control" rows="3" @bind-Value="_editing.Description" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-success me-2">Save</button>
+                        <button type="button" class="btn btn-outline-secondary" @onclick="() => _editing = null">Cancel</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    }
 }
 
 @code {
-    private List<Category> categories = [];
-    private List<Product> products = [];
-    private ProductForm form = new();
-    private int? editingId;
+    private List<Product> _products = [];
+    private List<Category> _categories = [];
+    private Product? _editing;
+    private string? _message;
 
     protected override async Task OnInitializedAsync()
     {
-        categories = await Db.Categories.Where(c => c.IsActive).OrderBy(c => c.Name).ToListAsync();
-        await LoadProducts();
-        if (categories.Count > 0 && form.CategoryId == 0)
-        {
-            form.CategoryId = categories[0].Id;
-        }
+        _categories = await Shop.GetAllCategoriesAsync();
+        _products = await Shop.GetAllProductsAsync();
     }
 
-    private async Task LoadProducts() =>
-        products = await Db.Products
-            .Include(p => p.Category)
-            .OrderBy(p => p.Name)
-            .ToListAsync();
-
-    private async Task Save()
+    private void NewProduct()
     {
-        if (editingId is null)
-        {
-            Db.Products.Add(new Product
-            {
-                Name = form.Name.Trim(),
-                Description = form.Description?.Trim(),
-                Price = form.Price,
-                Stock = form.Stock,
-                CategoryId = form.CategoryId,
-                IsActive = form.IsActive
-            });
-        }
-        else
-        {
-            var product = await Db.Products.FindAsync(editingId.Value);
-            if (product is not null)
-            {
-                product.Name = form.Name.Trim();
-                product.Description = form.Description?.Trim();
-                product.Price = form.Price;
-                product.Stock = form.Stock;
-                product.CategoryId = form.CategoryId;
-                product.IsActive = form.IsActive;
-            }
-        }
-
-        await Db.SaveChangesAsync();
-        await LoadProducts();
-        form = new ProductForm { CategoryId = categories.FirstOrDefault()?.Id ?? 0 };
-        editingId = null;
+        if (_categories.Count == 0) return;
+        _editing = new Product { CategoryId = _categories[0].Id, IsActive = true };
     }
 
-    private void Edit(Product product)
-    {
-        editingId = product.Id;
-        form = new ProductForm
+    private void EditProduct(Product product) =>
+        _editing = new Product
         {
+            Id = product.Id,
             Name = product.Name,
             Description = product.Description,
             Price = product.Price,
@@ -156,21 +133,21 @@ else
             CategoryId = product.CategoryId,
             IsActive = product.IsActive
         };
+
+    private async Task SaveProductAsync()
+    {
+        if (_editing is null) return;
+
+        await Shop.SaveProductAsync(_editing);
+        _products = await Shop.GetAllProductsAsync();
+        _editing = null;
+        _message = "Product saved.";
     }
 
-    private void CancelEdit()
+    private async Task DeleteProductAsync(int id)
     {
-        editingId = null;
-        form = new ProductForm { CategoryId = categories.FirstOrDefault()?.Id ?? 0 };
-    }
-
-    private sealed class ProductForm
-    {
-        public string Name { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public decimal Price { get; set; }
-        public int Stock { get; set; }
-        public int CategoryId { get; set; }
-        public bool IsActive { get; set; } = true;
+        await Shop.DeleteProductAsync(id);
+        _products = await Shop.GetAllProductsAsync();
+        _message = "Product deleted.";
     }
 }

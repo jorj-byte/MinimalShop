@@ -80,6 +80,11 @@ else
 }
 
 @code {
+    protected override async Task OnInitializedAsync()
+    {
+        await CartService.EnsureLoadedAsync();
+    }
+
     private readonly CheckoutModel _model = new();
     private bool _submitting;
     private bool _orderPlaced;

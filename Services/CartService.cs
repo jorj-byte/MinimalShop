@@ -1,3 +1,5 @@
+using Microsoft.JSInterop;
+
 namespace MinimalShop.Services;
 
 public class CartLine
@@ -9,15 +11,88 @@ public class CartLine
     public decimal LineTotal => Price * Quantity;
 }
 
-public class CartService
+/// <summary>
+/// Shopping cart persisted in the browser's localStorage (per circuit in Blazor Server).
+/// A JavaScript helper (wwwroot/js/cart-storage.js) is the storage layer and also
+/// notifies about cart changes made in other browser tabs via the "storage" event.
+/// </summary>
+public class CartService(IJSRuntime js) : IDisposable
 {
+    private const string LoadFn = "cartStorage.load";
+    private const string SaveFn = "cartStorage.save";
+    private const string WatchFn = "cartStorage.watch";
+    private const string UnwatchFn = "cartStorage.unwatch";
+
     private readonly Dictionary<int, CartLine> _lines = [];
+    private DotNetObjectReference<CartService>? _self;
+    private bool _loaded;
+    private bool _disposed;
+
+    private Task _persistChain = Task.CompletedTask;
 
     public event Action? OnChange;
 
     public IReadOnlyCollection<CartLine> Lines => _lines.Values;
     public int ItemCount => _lines.Values.Sum(l => l.Quantity);
     public decimal Subtotal => _lines.Values.Sum(l => l.LineTotal);
+
+    /// <summary>
+    /// Loads the persisted cart (once) and subscribes to cross-tab updates.
+    /// Safe to call from every page: subsequent calls are no-ops.
+    /// </summary>
+    public async Task EnsureLoadedAsync(CancellationToken ct = default)
+    {
+        if (_loaded)
+            return;
+        _loaded = true;
+
+        try
+        {
+            var stored = await js.InvokeAsync<CartLine[]>(LoadFn, ct);
+            _lines.Clear();
+            foreach (var line in stored ?? [])
+            {
+                if (line.ProductId != 0 && line.Quantity > 0)
+                    _lines[line.ProductId] = line;
+            }
+
+            _self ??= DotNetObjectReference.Create(this);
+            await js.InvokeVoidAsync(WatchFn, _self, ct);
+
+            if (_lines.Count > 0)
+                OnChange?.Invoke();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Circuit is closing; keep the in-memory cart only.
+        }
+        catch (JSException)
+        {
+            // JS interop unavailable — fall back to an in-memory cart.
+        }
+        catch (InvalidOperationException)
+        {
+            // Thrown while prerendering, where IJSRuntime cannot be provided.
+        }
+        catch (JSDisconnectedException)
+        {
+            // Client disconnected; nothing to persist.
+        }
+    }
+
+    [JSInvokable]
+    public Task OnStorageChanged(CartLine[] lines)
+    {
+        _lines.Clear();
+        foreach (var line in lines ?? [])
+        {
+            if (line.ProductId != 0 && line.Quantity > 0)
+                _lines[line.ProductId] = line;
+        }
+
+        OnChange?.Invoke();
+        return Task.CompletedTask;
+    }
 
     public void Add(int productId, string name, decimal price, int quantity = 1)
     {
@@ -50,9 +125,43 @@ public class CartService
 
     public void Clear()
     {
+        if (_lines.Count == 0)
+            return;
+
         _lines.Clear();
         Notify();
     }
 
-    private void Notify() => OnChange?.Invoke();
+    private void Notify()
+    {
+        Persist();
+        OnChange?.Invoke();
+    }
+
+    /// <summary>Queues a debounced save so concurrent changes are written in order.</summary>
+    private void Persist()
+    {
+        if (_disposed)
+            return;
+
+        var snapshot = _lines.Values.ToArray();
+        _persistChain = _persistChain
+            .ContinueWith(_ => js.InvokeVoidAsync(SaveFn, snapshot).AsTask(), TaskScheduler.Default)
+            .Unwrap();
+    }
+
+    public void Dispose()
+    {
+        _disposed = true;
+        try
+        {
+            _ = js.InvokeVoidAsync(UnwatchFn);
+        }
+        catch
+        {
+            // Interop may already be unavailable.
+        }
+
+        _self?.Dispose();
+    }
 }

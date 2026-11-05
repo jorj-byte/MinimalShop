@@ -68,6 +68,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await CartService.EnsureLoadedAsync();
         _categories = await ShopService.GetActiveCategoriesAsync();
         await LoadProductsAsync();
     }

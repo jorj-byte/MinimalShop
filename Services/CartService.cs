@@ -57,7 +57,10 @@ public class CartService(IJSRuntime js) : IDisposable
             }
 
             _self ??= DotNetObjectReference.Create(this);
-            await js.InvokeVoidAsync(WatchFn, _self, ct);
+            // NOTE: pass the CancellationToken as an invocation-level parameter (before
+            // positional args), never as a serialized argument — CancellationToken cannot
+            // be JSON-serialized (WaitHandle/IntPtr) and kills the Blazor circuit.
+            await js.InvokeVoidAsync(WatchFn, ct, _self);
 
             if (_lines.Count > 0)
                 OnChange?.Invoke();
@@ -77,6 +80,11 @@ public class CartService(IJSRuntime js) : IDisposable
         catch (JSDisconnectedException)
         {
             // Client disconnected; nothing to persist.
+        }
+        catch (Exception)
+        {
+            // Interop failure of any kind must never break the page — fall back
+            // to an in-memory cart instead of terminating the circuit.
         }
     }
 

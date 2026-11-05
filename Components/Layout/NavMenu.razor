@@ -1,5 +1,7 @@
-﻿@inject CartService CartService
-@inject ShopService ShopService
+﻿@using Microsoft.EntityFrameworkCore
+@using MinimalShop.Data
+@inject CartService CartService
+@inject IDbContextFactory<ShopDbContext> DbFactory
 @inject NavigationManager Navigation
 @implements IDisposable
 
@@ -57,7 +59,12 @@
     {
         CartService.OnChange += StateHasChanged;
         await CartService.EnsureLoadedAsync();
-        _categories = await ShopService.GetActiveCategoriesAsync();
+
+        await using var db = DbFactory.CreateDbContext();
+        _categories = await db.Categories
+            .Where(c => c.IsActive)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
     }
 
     private Task SearchAsync()

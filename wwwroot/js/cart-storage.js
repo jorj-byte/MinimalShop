@@ -9,7 +9,8 @@
     function parse(raw) {
         try {
             var parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
+            if (Array.isArray(parsed)) return parsed;
+            return parsed ? [parsed] : []; // tolerate legacy single-object payloads
         } catch {
             return [];
         }
@@ -25,8 +26,9 @@
     }
 
     function save(lines) {
+        var data = (Array.isArray(lines) ? lines : (lines ? [lines] : []));
         try {
-            window.localStorage.setItem(KEY, JSON.stringify(lines || []));
+            window.localStorage.setItem(KEY, JSON.stringify(data));
         } catch {
             // ignore quota/unavailable storage errors
         }

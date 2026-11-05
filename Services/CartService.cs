@@ -75,7 +75,7 @@ public class CartService(IJSRuntime js) : IDisposable
         }
         catch (InvalidOperationException)
         {
-            // Thrown while prerendering, where IJSRuntime cannot be provided.
+            // Expected during prerendering, where IJSRuntime cannot be provided.
         }
         catch (JSDisconnectedException)
         {
@@ -153,8 +153,12 @@ public class CartService(IJSRuntime js) : IDisposable
             return;
 
         var snapshot = _lines.Values.ToArray();
+        // Wrap explicitly: CartLine[] is object[]-assignable, so without the cast the
+        // params binding would spread every cart line as a separate JS argument and
+        // cartStorage.save() would only ever receive the first line.
+        object[] singleArg = { snapshot };
         _persistChain = _persistChain
-            .ContinueWith(_ => js.InvokeVoidAsync(SaveFn, snapshot).AsTask(), TaskScheduler.Default)
+            .ContinueWith(_ => js.InvokeVoidAsync(SaveFn, singleArg).AsTask(), TaskScheduler.Default)
             .Unwrap();
     }
 

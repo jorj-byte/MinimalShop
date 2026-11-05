@@ -3,15 +3,15 @@
 @inject ShopService ShopService
 @inject CartService CartService
 
-<PageTitle>Shop</PageTitle>
+<PageTitle>محصولات — مینیمال‌شاپ</PageTitle>
 
-<h1 class="mb-3">Shop</h1>
+<h1 class="mb-3">محصولات</h1>
 
 <div class="row mb-4">
     <div class="col-md-4">
-        <label class="form-label">Category</label>
+        <label class="form-label">دسته‌بندی</label>
         <select class="form-select" @bind="_selectedCategoryId">
-            <option value="">All categories</option>
+            <option value="">همه دسته‌ها</option>
             @foreach (var category in _categories)
             {
                 <option value="@category.Id">@category.Name</option>
@@ -19,17 +19,17 @@
         </select>
     </div>
     <div class="col-md-4 d-flex align-items-end">
-        <button class="btn btn-outline-primary" @onclick="LoadProductsAsync">Filter</button>
+        <button class="btn btn-outline-primary" @onclick="LoadProductsAsync">اعمال فیلتر</button>
     </div>
 </div>
 
 @if (_loading)
 {
-    <p>Loading...</p>
+    <p>در حال بارگذاری...</p>
 }
 else if (_products.Count == 0)
 {
-    <p>No products found.</p>
+    <p>محصولی یافت نشد.</p>
 }
 else
 {
@@ -44,13 +44,13 @@ else
                         <p class="text-muted small flex-grow-1">@product.Description</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <div class="fw-bold">@product.Price.ToString("C")</div>
-                                <small class="text-muted">@product.Stock in stock</small>
+                                <div class="fw-bold">@PersianFormat.Price(product.Price)</div>
+                                <small class="text-muted">@PersianFormat.Number(product.Stock) عدد موجود</small>
                             </div>
                             <button class="btn btn-primary"
                                     disabled="@(product.Stock <= 0)"
                                     @onclick="() => CartService.Add(product.Id, product.Name, product.Price)">
-                                Add
+                                افزودن به سبد
                             </button>
                         </div>
                     </div>

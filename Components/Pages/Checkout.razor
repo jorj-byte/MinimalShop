@@ -4,21 +4,21 @@
 @inject ShopService ShopService
 @inject NavigationManager Navigation
 
-<PageTitle>Checkout</PageTitle>
+<PageTitle>تکمیل سفارش — مینیمال‌شاپ</PageTitle>
 
-<h1 class="mb-3">Checkout</h1>
+<h1 class="mb-3">تکمیل سفارش</h1>
 
 @if (CartService.Lines.Count == 0 && !_orderPlaced)
 {
-    <p>Your cart is empty.</p>
-    <a class="btn btn-primary" href="shop">Go to shop</a>
+    <p>سبد خرید شما خالی است.</p>
+    <a class="btn btn-primary" href="shop">مشاهده محصولات</a>
 }
 else if (_orderPlaced && _order is not null)
 {
     <div class="alert alert-success">
-        <h2 class="h5">Order placed!</h2>
-        <p>Order <strong>@_order.OrderNumber</strong> for @_order.Total.ToString("C") was received.</p>
-        <a class="btn btn-primary" href="shop">Continue shopping</a>
+        <h2 class="h5">سفارش با موفقیت ثبت شد!</h2>
+        <p>شماره سفارش <strong>@_order.OrderNumber</strong> به مبلغ @PersianFormat.Price(_order.Total) ثبت شد.</p>
+        <a class="btn btn-primary" href="shop">ادامه خرید</a>
     </div>
 }
 else
@@ -30,19 +30,19 @@ else
                 <ValidationSummary />
 
                 <div class="mb-3">
-                    <label class="form-label">Full name</label>
+                    <label class="form-label">نام و نام خانوادگی</label>
                     <InputText class="form-control" @bind-Value="_model.CustomerName" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
+                    <label class="form-label">ایمیل</label>
                     <InputText class="form-control" @bind-Value="_model.CustomerEmail" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Phone (optional)</label>
+                    <label class="form-label">شماره تماس (اختیاری)</label>
                     <InputText class="form-control" @bind-Value="_model.CustomerPhone" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Shipping address</label>
+                    <label class="form-label">نشانی تحویل سفارش</label>
                     <InputTextArea class="form-control" rows="3" @bind-Value="_model.ShippingAddress" />
                 </div>
 
@@ -52,26 +52,26 @@ else
                 }
 
                 <button class="btn btn-success" disabled="@_submitting">
-                    @(_submitting ? "Placing order..." : $"Place order ({CartService.Subtotal:C})")
+                    @(_submitting ? "در حال ثبت سفارش..." : $"ثبت سفارش ({PersianFormat.Price(CartService.Subtotal)})")
                 </button>
             </EditForm>
         </div>
         <div class="col-lg-5">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="h6">Order summary</h2>
+                    <h2 class="h6">خلاصه سفارش</h2>
                     <ul class="list-unstyled mb-0">
                         @foreach (var line in CartService.Lines)
                         {
                             <li class="d-flex justify-content-between small py-1 border-bottom">
-                                <span>@line.Name x @line.Quantity</span>
-                                <span>@line.LineTotal.ToString("C")</span>
+                                <span>@line.Name × @PersianFormat.Number(line.Quantity)</span>
+                                <span>@PersianFormat.Price(line.LineTotal)</span>
                             </li>
                         }
                     </ul>
                     <div class="d-flex justify-content-between fw-bold mt-3">
-                        <span>Total</span>
-                        <span>@CartService.Subtotal.ToString("C")</span>
+                        <span>جمع کل</span>
+                        <span>@PersianFormat.Price(CartService.Subtotal)</span>
                     </div>
                 </div>
             </div>
@@ -115,17 +115,17 @@ else
 
     private sealed class CheckoutModel
     {
-        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "وارد کردن نام الزامی است.")]
         [System.ComponentModel.DataAnnotations.StringLength(120)]
         public string CustomerName { get; set; } = string.Empty;
 
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.EmailAddress]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "وارد کردن ایمیل الزامی است.")]
+        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "ایمیل واردشده معتبر نیست.")]
         public string CustomerEmail { get; set; } = string.Empty;
 
         public string? CustomerPhone { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "وارد کردن نشانی الزامی است.")]
         [System.ComponentModel.DataAnnotations.StringLength(500)]
         public string ShippingAddress { get; set; } = string.Empty;
     }

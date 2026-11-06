@@ -18,7 +18,7 @@ public class ShopService(ShopDbContext db)
     public Task<Category?> GetCategoryAsync(int id, CancellationToken ct = default) =>
         db.Categories.FirstOrDefaultAsync(c => c.Id == id, ct);
 
-    public Task<List<Product>> GetActiveProductsAsync(int? categoryId = null, CancellationToken ct = default)
+    public Task<List<Product>> GetActiveProductsAsync(int? categoryId = null, string? search = null, CancellationToken ct = default)
     {
         var query = db.Products
             .Include(p => p.Category)
@@ -27,8 +27,20 @@ public class ShopService(ShopDbContext db)
         if (categoryId.HasValue)
             query = query.Where(p => p.CategoryId == categoryId.Value);
 
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var pattern = $"%{search.Trim()}%";
+            query = query.Where(p =>
+                EF.Functions.ILike(p.Name, pattern) ||
+                EF.Functions.ILike(p.Description == null ? string.Empty : p.Description, pattern));
+        }
+
         return query.OrderBy(p => p.Name).ToListAsync(ct);
     }
+
+    public Task<Product?> GetActiveProductAsync(int id, CancellationToken ct = default) =>
+        db.Products.Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.Id == id && p.IsActive && p.Category.IsActive, ct);
 
     public Task<List<Product>> GetAllProductsAsync(CancellationToken ct = default) =>
         db.Products.Include(p => p.Category).OrderBy(p => p.Name).ToListAsync(ct);

@@ -19,6 +19,8 @@ services:
     restart: unless-stopped
     ports:
       - "8090:8080"
+    volumes:
+      - shop-images:/app/wwwroot/images/products
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
@@ -33,3 +35,4 @@ services:
 
 volumes:
   pgdata:
+  shop-images:

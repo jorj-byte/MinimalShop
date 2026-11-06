@@ -154,14 +154,26 @@ namespace MinimalShop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Color")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<int?>("HeightCm")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<int?>("LengthCm")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -173,6 +185,12 @@ namespace MinimalShop.Migrations
                         .HasColumnType("numeric(18,2)");
 
                     b.Property<int>("Stock")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("WeightGrams")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("WidthCm")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

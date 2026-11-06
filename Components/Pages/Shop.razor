@@ -7,6 +7,14 @@
 
 <h1 class="mb-3">محصولات</h1>
 
+@if (!string.IsNullOrWhiteSpace(_searchTerm))
+{
+    <div class="filter-bar">
+        <span>نتایج جستجو برای «@_searchTerm»</span>
+        <a class="btn-link" href="shop">حذف جستجو</a>
+    </div>
+}
+
 <div class="row mb-4">
     <div class="col-md-4">
         <label class="form-label">دسته‌بندی</label>
@@ -29,7 +37,10 @@
 }
 else if (_products.Count == 0)
 {
-    <p>محصولی یافت نشد.</p>
+    <div class="empty-state">
+        <p>محصولی یافت نشد.</p>
+        <a class="btn-link" href="shop">مشاهده همه محصولات</a>
+    </div>
 }
 else
 {
@@ -38,9 +49,17 @@ else
         {
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <div class="card-media">
+                            <img src="@product.ImageUrl" alt="@product.Name" loading="lazy" />
+                        </div>
+                    }
                     <div class="card-body d-flex flex-column">
                         <span class="badge text-bg-light border align-self-start mb-2">@product.Category.Name</span>
-                        <h2 class="h5">@product.Name</h2>
+                        <h2 class="h5">
+                            <NavLink class="product-link" href="@($"product/{product.Id}")">@product.Name</NavLink>
+                        </h2>
                         <p class="text-muted small flex-grow-1">@product.Description</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -61,23 +80,51 @@ else
 }
 
 @code {
+    [SupplyParameterFromQuery(Name = "q")] public string? SearchQuery { get; set; }
+    [SupplyParameterFromQuery(Name = "category")] public string? CategoryParam { get; set; }
+
     private bool _loading = true;
     private string _selectedCategoryId = "";
+    private string _searchTerm = "";
+    private string _lastQ = "\0";
+    private string _lastCategory = "\0";
     private List<Category> _categories = [];
     private List<Product> _products = [];
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized() { /* data loading happens in OnParametersSetAsync */ }
+
+    protected override async Task OnParametersSetAsync()
     {
-        await CartService.EnsureLoadedAsync();
-        _categories = await ShopService.GetActiveCategoriesAsync();
-        await LoadProductsAsync();
+        var q = SearchQuery?.Trim() ?? "";
+        var category = CategoryParam ?? "";
+
+        if (q == _lastQ && category == _lastCategory)
+            return;
+
+        _lastQ = q;
+        _lastCategory = category;
+        _selectedCategoryId = category;
+        _searchTerm = q;
+
+        _loading = true;
+        try
+        {
+            if (_categories.Count == 0)
+                _categories = await ShopService.GetActiveCategoriesAsync();
+
+            int? categoryId = int.TryParse(_selectedCategoryId, out var id) ? id : null;
+            _products = await ShopService.GetActiveProductsAsync(categoryId, _searchTerm);
+        }
+        finally
+        {
+            _loading = false;
+        }
     }
 
     private async Task LoadProductsAsync()
     {
-        _loading = true;
         int? categoryId = int.TryParse(_selectedCategoryId, out var id) ? id : null;
-        _products = await ShopService.GetActiveProductsAsync(categoryId);
-        _loading = false;
+        _products = await ShopService.GetActiveProductsAsync(categoryId, _searchTerm);
+        StateHasChanged();
     }
 }

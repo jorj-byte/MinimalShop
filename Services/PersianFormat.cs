@@ -13,6 +13,9 @@ public static class PersianFormat
     public static string Number(int value) =>
         string.Format(Culture, "{0:N0}", value);
 
+    public static string Number(decimal value) =>
+        string.Format(Culture, "{0:N0}", value);
+
     public static string StatusLabel(OrderStatus status) => status switch
     {
         OrderStatus.Pending => "در انتظار بررسی",

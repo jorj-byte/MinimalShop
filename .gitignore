@@ -12,6 +12,7 @@ appsettings.Production.json
 *.db
 *.db-shm
 *.db-wal
+wwwroot/images/products/upload-*
 
 ## OS
 .DS_Store

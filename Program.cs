@@ -16,6 +16,10 @@ await DatabaseInitializer.InitializeAsync(app.Services);
 
 app.UseForwardedHeaders();
 
+// Serves files uploaded at runtime (e.g. /images/products/upload-*), which the
+// build-time manifest of MapStaticAssets can never know about.
+app.UseStaticFiles();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);

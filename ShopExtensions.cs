@@ -24,11 +24,6 @@ public static class ProgramExtensions
         builder.Services.AddDbContext<ShopDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // Separate factory context so components like the header nav can query without
-        // racing the page's scoped context (EF forbids concurrent operations on one instance).
-        builder.Services.AddDbContextFactory<ShopDbContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
         builder.Services.AddSingleton<AdminAuthService>();
         builder.Services.AddScoped<ShopService>();
         builder.Services.AddScoped<CartService>();

@@ -2,6 +2,7 @@
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 @inject ShopService Shop
+@inject IWebHostEnvironment Env
 
 <PageTitle>محصولات - مدیریت</PageTitle>
 
@@ -86,6 +87,41 @@
                         <label class="form-label">توضیحات</label>
                         <InputTextArea class="form-control" rows="3" @bind-Value="_editing.Description" />
                     </div>
+                    <div class="col-md-8">
+                        <label class="form-label">تصویر محصول</label>
+                        @if (!string.IsNullOrEmpty(_editing.ImageUrl))
+                        {
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <img src="@_editing.ImageUrl" alt="" style="height:64px; aspect-ratio:4/3; object-fit:cover; border-radius:8px;" />
+                                <button type="button" class="btn btn-sm btn-outline-danger" @onclick="RemoveImage">حذف تصویر</button>
+                            </div>
+                        }
+                        <InputFile OnChange="UploadImageAsync" accept="image/jpeg,image/png,image/webp" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">رنگ</label>
+                        <InputText class="form-control" @bind-Value="_editing.Color" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">وزن (گرم)</label>
+                        <InputNumber class="form-control" @bind-Value="_editing.WeightGrams" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <label class="form-label">طول (cm)</label>
+                                <InputNumber class="form-control" @bind-Value="_editing.LengthCm" />
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label">عرض (cm)</label>
+                                <InputNumber class="form-control" @bind-Value="_editing.WidthCm" />
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label">ارتفاع (cm)</label>
+                                <InputNumber class="form-control" @bind-Value="_editing.HeightCm" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-3">
                     <button class="btn btn-success me-2">ذخیره</button>
@@ -123,7 +159,13 @@
             Price = product.Price,
             Stock = product.Stock,
             CategoryId = product.CategoryId,
-            IsActive = product.IsActive
+            IsActive = product.IsActive,
+            ImageUrl = product.ImageUrl,
+            Color = product.Color,
+            WeightGrams = product.WeightGrams,
+            LengthCm = product.LengthCm,
+            WidthCm = product.WidthCm,
+            HeightCm = product.HeightCm
         };
 
     private async Task SaveProductAsync()
@@ -142,4 +184,51 @@
         _products = await Shop.GetAllProductsAsync();
         _message = "محصول حذف شد.";
     }
+
+    private static readonly string[] AllowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+    private const long MaxImageBytes = 5 * 1024 * 1024;
+    private bool _uploading;
+
+    private async Task UploadImageAsync(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (_editing is null || file is null) return;
+
+        var ext = Path.GetExtension(file.Name).ToLowerInvariant();
+        if (!AllowedExtensions.Contains(ext))
+        {
+            _message = "فرمت تصویر مجاز نیست (فقط jpeg/png/webp).";
+            return;
+        }
+
+        if (file.Size > MaxImageBytes)
+        {
+            _message = "حجم تصویر بیشتر از ۵ مگابایت است.";
+            return;
+        }
+
+        _uploading = true;
+        try
+        {
+            var dir = Path.Combine(Env.WebRootPath ?? "wwwroot", "images", "products");
+            Directory.CreateDirectory(dir);
+
+            var name = $"upload-{Guid.NewGuid():N}{ext}";
+            await using var stream = File.Create(Path.Combine(dir, name));
+            await file.OpenReadStream(MaxImageBytes).CopyToAsync(stream);
+
+            _editing.ImageUrl = $"/images/products/{name}";
+            _message = "تصویر آپلود شد (برای ثبت، فرم را ذخیره کنید).";
+        }
+        catch (Exception ex)
+        {
+            _message = "خطا در آپلود تصویر: " + ex.Message;
+        }
+        finally
+        {
+            _uploading = false;
+        }
+    }
+
+    private void RemoveImage() => _editing.ImageUrl = null;
 }

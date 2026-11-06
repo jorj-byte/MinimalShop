@@ -1,7 +1,7 @@
 ﻿@using Microsoft.EntityFrameworkCore
 @using MinimalShop.Data
 @inject CartService CartService
-@inject IDbContextFactory<ShopDbContext> DbFactory
+@inject IServiceScopeFactory ScopeFactory
 @inject NavigationManager Navigation
 @implements IDisposable
 
@@ -60,7 +60,10 @@
         CartService.OnChange += StateHasChanged;
         await CartService.EnsureLoadedAsync();
 
-        await using var db = DbFactory.CreateDbContext();
+        // The header loads its categories from a separate scope so it never races
+        // the page's scoped DbContext (EF forbids concurrent operations on one instance).
+        using var scope = ScopeFactory.CreateScope();
+        await using var db = scope.ServiceProvider.GetRequiredService<ShopDbContext>();
         _categories = await db.Categories
             .Where(c => c.IsActive)
             .OrderBy(c => c.Name)

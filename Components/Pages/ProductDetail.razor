@@ -1,0 +1,149 @@
+@page "/product/{Id:int}"
+@rendermode InteractiveServer
+@inject ShopService ShopService
+@inject CartService CartService
+
+<PageTitle>@(_product?.Name is null ? "محصولات" : _product.Name) — مینیمال‌شاپ</PageTitle>
+
+@if (_loading)
+{
+    <p>در حال بارگذاری...</p>
+}
+else if (_product is null)
+{
+    <div class="empty-state">
+        <h2>محصول یافت نشد</h2>
+        <p>شاید این محصول حذف شده یا از سوی فروشنده غیرفعال است.</p>
+        <a class="btn btn-secondary" href="shop">بازگشت به فروشگاه</a>
+    </div>
+}
+else
+{
+    <nav class="breadcrumb" aria-label="مسیر">
+        <a href="">مینیمال‌شاپ</a>
+        <span>›</span>
+        <a href="shop?category=@_product.CategoryId">@_product.Category.Name</a>
+        <span>›</span>
+        <span class="current">@_product.Name</span>
+    </nav>
+
+    <div class="product-page">
+        <div class="product-media">
+            @if (!string.IsNullOrEmpty(_product.ImageUrl))
+            {
+                <img class="product-photo" src="@_product.ImageUrl" alt="@_product.Name" />
+            }
+            else
+            {
+                <div class="product-photo-empty" aria-hidden="true">🛍️</div>
+            }
+        </div>
+
+        <div class="product-panel">
+            <h1 class="product-title">@_product.Name</h1>
+
+            @if (!string.IsNullOrWhiteSpace(_product.Description))
+            {
+                <p class="product-summary">@_product.Description</p>
+            }
+
+            @if (_product.Color is not null || _product.WeightGrams is > 0 || _product.LengthCm is > 0)
+            {
+                <table class="spec-table">
+                    @if (!string.IsNullOrWhiteSpace(_product.Color))
+                    {
+                        <tr><th>رنگ</th><td>@_product.Color</td></tr>
+                    }
+                    @if (_product.WeightGrams is > 0)
+                    {
+                        <tr><th>وزن</th><td>@FormatWeight(_product.WeightGrams.Value)</td></tr>
+                    }
+                    @if (_product.LengthCm is > 0 && _product.WidthCm is > 0)
+                    {
+                        <tr>
+                            <th>ابعاد</th>
+                            <td>
+                                @($"{PersianFormat.Number(_product.LengthCm.Value)} × {PersianFormat.Number(_product.WidthCm!.Value)}")@(_product.HeightCm is > 0 ? $" × {PersianFormat.Number(_product.HeightCm.Value)}" : "")
+                                سانتی‌متر
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+
+        <aside class="buy-box">
+            <div class="seller-row">
+                <span>فروشنده</span>
+                <strong>@StoreName</strong>
+            </div>
+
+            <div class="stock-row @(isOutOfStock ? "out" : "")">
+                @if (isOutOfStock)
+                {
+                    <span>ناموجود</span>
+                }
+                else
+                {
+                    <span>موجودی انبار</span>
+                    <strong>@($"{PersianFormat.Number(_product.Stock)} عدد")</strong>
+                }
+            </div>
+
+            <div class="price-row">
+                @if (!isOutOfStock)
+                {
+                    <span class="unit">تومان</span>
+                    <span class="amount">@PersianFormat.Number(_product.Price)</span>
+                }
+            </div>
+
+            @if (_added)
+            {
+                <div class="added-note">به سبد خرید اضافه شد ✓</div>
+                <a class="btn btn-secondary buy-btn" href="cart">مشاهده سبد خرید</a>
+            }
+            else
+            {
+                <button class="btn btn-success buy-btn" disabled="@isOutOfStock" @onclick="AddToCartAsync">
+                    افزودن به سبد خرید
+                </button>
+            }
+        </aside>
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    [Inject] private IOptions<ShopSettings> ShopOptions { get; set; } = default!;
+
+    private string StoreName => ShopOptions.Value.StoreName;
+
+    private bool _loading = true;
+    private bool _added;
+    private Product? _product;
+
+    private bool isOutOfStock => _product is null || _product.Stock <= 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _product = await ShopService.GetActiveProductAsync(Id);
+        _loading = false;
+    }
+
+    private static string FormatWeight(int grams) =>
+        grams >= 1000
+            ? string.Format(Services.PersianFormat.Culture, "{0:0.###}", grams / 1000.0) + " کیلوگرم"
+            : $"{PersianFormat.Number(grams)} گرم";
+
+    private async Task AddToCartAsync()
+    {
+        if (isOutOfStock)
+            return;
+
+        CartService.Add(_product!.Id, _product.Name, _product.Price);
+        _added = true;
+        await Task.CompletedTask;
+    }
+}

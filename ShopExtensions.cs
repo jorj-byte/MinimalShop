@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using MinimalShop.Data;
+using MinimalShop.Models;
 using MinimalShop.Services;
 
 namespace MinimalShop;
@@ -27,6 +28,9 @@ public static class ProgramExtensions
         builder.Services.AddSingleton<AdminAuthService>();
         builder.Services.AddScoped<ShopService>();
         builder.Services.AddScoped<CartService>();
+
+        builder.Services.Configure<PaymentSettings>(builder.Configuration.GetSection(PaymentSettings.SectionName));
+        builder.Services.AddHttpClient<PaymentService>();
 
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -98,6 +102,68 @@ public static class ProgramExtensions
             await http.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Results.Redirect("/admin");
         }).RequireAuthorization("AdminOnly").DisableAntiforgery();
+
+        return app;
+    }
+
+    public static WebApplication MapPaymentEndpoints(this WebApplication app)
+    {
+        // Start the Zarinpal payment for an order and redirect the browser to the gateway.
+        app.MapGet("/payment/start/{orderId:int}", async (
+            int orderId,
+            ShopService shop,
+            PaymentService payment,
+            HttpContext http,
+            CancellationToken ct) =>
+        {
+            var order = await shop.GetOrderAsync(orderId, ct);
+            if (order is null)
+                return Results.Redirect("/shop");
+
+            if (order.PaymentRefId is not null || order.Status is not OrderStatus.Pending)
+                return Results.Redirect($"/order/{orderId}");
+
+            var callback = $"{http.Request.Scheme}://{http.Request.Host}/payment/callback";
+            var result = await payment.RequestPaymentAsync(
+                order.Id, order.Total, $"پرداخت سفارش {order.OrderNumber}", callback, ct);
+
+            if (!result.Succeeded)
+                return Results.Redirect($"/order/{orderId}?payment=error&msg={Uri.EscapeDataString(result.Error ?? "")}");
+
+            order.PaymentAuthority = result.Authority;
+            order.UpdatedAt = DateTime.UtcNow;
+            await shop.SaveOrderAuthorityAsync(order.Id, result.Authority!, ct);
+
+            return Results.Redirect(result.RedirectUrl!);
+        }).ExcludeFromDescription();
+
+        // Gateway return point: verify the payment and show the receipt.
+        app.MapGet("/payment/callback", async (
+            HttpContext http,
+            ShopService shop,
+            PaymentService payment,
+            CancellationToken ct) =>
+        {
+            var authority = http.Request.Query["Authority"].ToString();
+            var status = http.Request.Query["Status"].ToString();
+
+            var order = string.IsNullOrWhiteSpace(authority)
+                ? null
+                : await shop.GetOrderByAuthorityAsync(authority, ct);
+
+            if (order is null)
+                return Results.Redirect("/cart?payment=invalid");
+
+            if (!string.Equals(status, "OK", StringComparison.OrdinalIgnoreCase))
+                return Results.Redirect($"/order/{order.Id}?payment=nok");
+
+            var verify = await payment.VerifyPaymentAsync(authority, order.Total, ct);
+            if (!verify.Succeeded)
+                return Results.Redirect($"/order/{order.Id}?payment=error&msg={Uri.EscapeDataString(verify.Error ?? "")}");
+
+            await shop.MarkOrderPaidAsync(order.Id, verify.RefId ?? 0, ct);
+            return Results.Redirect($"/order/{order.Id}?payment=ok");
+        }).ExcludeFromDescription();
 
         return app;
     }

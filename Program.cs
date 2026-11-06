@@ -36,6 +36,7 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapAdminAuthEndpoints();
+app.MapPaymentEndpoints();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

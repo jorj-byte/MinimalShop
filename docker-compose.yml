@@ -28,6 +28,8 @@ services:
       Admin__Password: ${ADMIN_PASSWORD:-changeme}
       Admin__MaxFailedAttempts: "5"
       Admin__LockoutMinutes: "15"
+      Payment__Zarinpal__MerchantId: ${ZARINPAL_MERCHANT_ID:-}
+      Payment__Zarinpal__Sandbox: ${ZARINPAL_SANDBOX:-true}
       Shop__StoreName: ${SHOP_NAME:-MinimalShop}
     depends_on:
       db:

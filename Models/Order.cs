@@ -13,5 +13,10 @@ public class Order
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 
+    // Online payment data (Zarinpal)
+    public string? PaymentAuthority { get; set; }
+    public long? PaymentRefId { get; set; }
+    public DateTime? PaidAt { get; set; }
+
     public ICollection<OrderItem> Items { get; set; } = [];
 }

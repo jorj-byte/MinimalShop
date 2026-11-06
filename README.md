@@ -74,6 +74,8 @@ Blazor Server needs WebSocket support (`Upgrade` headers above).
 | Database | `ConnectionStrings__DefaultConnection` | see `appsettings.json` |
 | Admin password | `Admin__Password` | `changeme` |
 | Store name | `Shop__StoreName` | `MinimalShop` |
+| Zarinpal merchant id | `Payment__Zarinpal__MerchantId` | *(empty = gateway disabled)* |
+| Zarinpal sandbox mode | `Payment__Zarinpal__Sandbox` | `true` |
 
 ## Project structure
 

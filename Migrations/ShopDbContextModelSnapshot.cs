@@ -86,6 +86,15 @@ namespace MinimalShop.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)");
 
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PaymentAuthority")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("PaymentRefId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
                         .HasColumnType("text");

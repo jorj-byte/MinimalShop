@@ -686,6 +686,66 @@ body {
     text-align: center;
 }
 
+.receipt-page {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+.receipt-status {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.receipt-status.ok {
+    background: #e8f5e9;
+    color: var(--success);
+}
+
+.receipt-status.nok {
+    background: #fdecea;
+    color: var(--error);
+}
+
+.receipt-status.warn {
+    background: #fff7e0;
+    color: #a86c00;
+}
+
+.receipt-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+}
+
+.receipt-summary .row-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+}
+
+.receipt-summary .row-line:last-child {
+    border-bottom: none;
+}
+
+.receipt-summary .row-line span:first-child {
+    color: var(--muted);
+}
+
+.receipt-summary .row-line.total strong {
+    font-size: 1.15rem;
+    color: var(--primary);
+}
+
 .card-media {
     border-bottom: 1px solid var(--border);
     overflow: hidden;

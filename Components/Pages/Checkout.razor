@@ -107,6 +107,7 @@ else
 
             CartService.Clear();
             _orderPlaced = true;
+            Navigation.NavigateTo($"/payment/start/{_order.Id}");
         }
         catch (Exception ex)
         {

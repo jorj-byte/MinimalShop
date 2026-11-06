@@ -175,6 +175,39 @@ public class ShopService(ShopDbContext db)
         await db.SaveChangesAsync(ct);
     }
 
+    public Task<Order?> GetOrderByAuthorityAsync(string authority, CancellationToken ct = default) =>
+        db.Orders
+            .FirstOrDefaultAsync(o => o.PaymentAuthority == authority, ct);
+
+    public async Task SaveOrderAuthorityAsync(int orderId, string authority, CancellationToken ct = default)
+    {
+        var order = await db.Orders
+            .FirstOrDefaultAsync(o => o.Id == orderId, ct)
+            ?? throw new InvalidOperationException("Order not found.");
+
+        order.PaymentAuthority = authority;
+        order.UpdatedAt = DateTime.UtcNow;
+        await db.SaveChangesAsync(ct);
+    }
+
+    public async Task<bool> MarkOrderPaidAsync(int orderId, long refId, CancellationToken ct = default)
+    {
+        var order = await db.Orders
+            .FirstOrDefaultAsync(o => o.Id == orderId, ct)
+            ?? throw new InvalidOperationException("Order not found.");
+
+        if (order.PaymentRefId is not null)
+            return false; // already paid
+
+        order.Status = OrderStatus.Confirmed;
+        order.PaymentRefId = refId;
+        order.PaidAt = DateTime.UtcNow;
+        order.UpdatedAt = DateTime.UtcNow;
+
+        await db.SaveChangesAsync(ct);
+        return true;
+    }
+
     private static string GenerateOrderNumber() =>
         $"MS-{DateTime.UtcNow:yyyyMMdd}-{Random.Shared.Next(1000, 9999)}";
 

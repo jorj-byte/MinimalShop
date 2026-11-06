@@ -1,0 +1,129 @@
+@page "/order/{Id:int}"
+@rendermode InteractiveServer
+@inject ShopService ShopService
+@inject NavigationManager Navigation
+
+<PageTitle>رسید سفارش — مینیمال‌شاپ</PageTitle>
+
+@if (_loading)
+{
+    <p>در حال بارگذاری...</p>
+}
+else if (_order is null)
+{
+    <div class="empty-state">
+        <h2>سفارش یافت نشد</h2>
+        <a class="btn btn-secondary" href="">بازگشت به فروشگاه</a>
+    </div>
+}
+else
+{
+    <div class="receipt-page">
+        <div class="receipt-status @StatusClass">
+            @StatusMessage
+        </div>
+
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>قیمت واحد</th>
+                        <th>تعداد</th>
+                        <th>جمع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in _order.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@PersianFormat.Price(item.UnitPrice)</td>
+                            <td>@PersianFormat.Number(item.Quantity)</td>
+                            <td>@PersianFormat.Price(item.LineTotal)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="receipt-summary">
+            <div class="row-line">
+                <span>شماره سفارش</span>
+                <strong>@_order.OrderNumber</strong>
+            </div>
+            <div class="row-line">
+                <span>وضعیت</span>
+                <strong>@PersianFormat.StatusLabel(_order.Status)</strong>
+            </div>
+            @if (_order.PaymentRefId is not null)
+            {
+                <div class="row-line">
+                    <span>کد پیگیری پرداخت</span>
+                    <strong>@PersianFormat.Number(_order.PaymentRefId.Value)</strong>
+                </div>
+            }
+            <div class="row-line total">
+                <span>جمع کل</span>
+                <strong>@PersianFormat.Price(_order.Total)</strong>
+            </div>
+        </div>
+
+        @if (_order.Status == OrderStatus.Pending)
+        {
+            <a class="btn btn-success" href="/payment/start/@_order.Id">پرداخت سفارش</a>
+        }
+        <a class="btn btn-secondary" href="shop">ادامه خرید</a>
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    [SupplyParameterFromQuery(Name = "payment")] public string? PaymentResult { get; set; }
+    [SupplyParameterFromQuery(Name = "msg")] public string? ErrorMessage { get; set; }
+    [SupplyParameterFromQuery(Name = "order_id")] public string? OrderIdParam { get; set; }
+
+    private bool _loading = true;
+    private Order? _order;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _order = await ShopService.GetOrderAsync(Id);
+        _loading = false;
+    }
+
+    private string StatusClass => PaymentResult switch
+    {
+        "ok" => "ok",
+        "nok" or "error" or "invalid" => "nok",
+        _ => _order?.Status is OrderStatus.Confirmed or OrderStatus.Shipped or OrderStatus.Delivered ? "ok" : "warn"
+    };
+
+    private string StatusMessage
+    {
+        get
+        {
+            switch (PaymentResult)
+            {
+                case "ok":
+                    return "پرداخت با موفقیت انجام شد. سفارش شما در حال آماده‌سازی است ✓";
+                case "nok":
+                    return "پرداخت ناموفق بود؛ می‌توانید دوباره تلاش کنید.";
+                case "error":
+                    return ErrorMessage is null ? "خطا در پرداخت." : $"خطا در پرداخت: {Uri.UnescapeDataString(ErrorMessage)}";
+                case "invalid":
+                    return "پرداخت قابل تأیید نبود.";
+            }
+
+            return _order?.Status switch
+            {
+                OrderStatus.Confirmed => "سفارش شما تأیید و پرداخت‌شده است ✓",
+                OrderStatus.Shipped => "سفارش شما ارسال شده است.",
+                OrderStatus.Delivered => "سفارش شما تحویل شده است.",
+                OrderStatus.Cancelled => "این سفارش لغو شده است.",
+                _ => "سفارش شما ثبت شد؛ در انتظار پرداخت است."
+            };
+        }
+    }
+}

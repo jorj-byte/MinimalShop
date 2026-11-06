@@ -1,0 +1,10 @@
+C:\Users\jorj\Projects\MinimalShop\README.md
+C:\Users\jorj\Projects\MinimalShop\wwwroot\favicon.png
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\anker-powerbank-20000.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\galaxyfit3-watch.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\ml2170-desk-lamp.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\porcelain-tea-set-4.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\sony-headphone-whch520.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\spark-65w-charger.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\typec-cable-1m.jpg
+C:\Users\jorj\Projects\MinimalShop\wwwroot\images\products\xiaomi-kitchen-scale.jpg

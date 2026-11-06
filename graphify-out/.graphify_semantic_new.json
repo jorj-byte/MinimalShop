@@ -1,0 +1,1854 @@
+{
+  "nodes": [
+    {
+      "id": "readme_minimalshop",
+      "label": "MinimalShop",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_blazor_server",
+      "label": "Blazor Server",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_net_10_sdk",
+      "label": ".NET 10",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_public_storefront",
+      "label": "Public Storefront (home, shop, cart, checkout)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_admin_panel",
+      "label": "Admin Panel (/admin)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_category_management",
+      "label": "Category Management",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_product_catalog",
+      "label": "Product Catalog",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_cart_checkout",
+      "label": "Cart / Checkout",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_order_management",
+      "label": "Order Management",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_postgresql",
+      "label": "PostgreSQL",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_ef_core_migrations",
+      "label": "EF Core Migrations",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_docker_compose_deployment",
+      "label": "Docker Compose Deployment (app + Postgres)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_hetzner_minimal_vps",
+      "label": "Hetzner Minimal VPS Deployment",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_env_file_configuration",
+      "label": ".env File Configuration",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_nginx_https_reverse_proxy",
+      "label": "Nginx + HTTPS Reverse Proxy (Nginx + Certbot)",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_websocket_upgrade_headers",
+      "label": "WebSocket Support (Upgrade headers)",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_configuration_settings",
+      "label": "Configuration Settings (appsettings.json / environment variables)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_admin_password_setting",
+      "label": "Admin Password Setting (Admin__Password)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_zarinpal_payment",
+      "label": "Zarinpal Payment Gateway",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_zarinpal_sandbox_mode",
+      "label": "Zarinpal Sandbox Mode",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_models_directory",
+      "label": "Models/ Directory (Category, Product, Order entities)",
+      "file_type": "code",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_data_directory",
+      "label": "Data/ Directory (ShopDbContext, migrations, seed data)",
+      "file_type": "code",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_services_directory",
+      "label": "Services/ Directory (shop, cart, admin auth services)",
+      "file_type": "code",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_components_pages_directory",
+      "label": "Components/Pages/ Directory (storefront and admin UI)",
+      "file_type": "code",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_shop_dbcontext",
+      "label": "ShopDbContext",
+      "file_type": "code",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_admin_auth_service",
+      "label": "Admin Auth Service",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_dotnet_ef_commands",
+      "label": "dotnet EF / publish Commands",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_favicon",
+      "label": "MinimalShop Favicon (favicon.png)",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_blazor_logo",
+      "label": "Blazor Framework Logo (purple flame spiral)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_at_symbol",
+      "label": "At (@) Symbol Motif",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_blazor_web_app_branding",
+      "label": "Blazor Web App Site Branding (default template icon)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_minimalshop_site_concept",
+      "label": "MinimalShop Site Concept",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_sony_headphone_whch520_product_photo",
+      "label": "Product photo file sony-headphone-whch520.jpg: flat-lay studio shot of wired over-ear headphones with wooden earcups on tan background",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_sony_headphone_whch520_wooden_over_ear_wired_headphones_concept",
+      "label": "Depicted product: premium wired over-ear headphones with wood-grain earcups, black leather earpads and padded headband (no visible brand/model text; resembles wooden audiophile headphones)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_sony_headphone_whch520_sony_whch520_on_ear_wireless_headphones_concept",
+      "label": "Sony WH-CH520 on-ear wireless headphones implied by the product filename",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_sony_headphone_whch520_headphones_product_category_concept",
+      "label": "Headphones product category (consumer audio equipment)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_typec_cable_1m_jpg",
+      "label": "Product photo: typec-cable-1m.jpg",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "usb_c_charging_cable_concept",
+      "label": "USB-C charging cable (1m braided)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "portable_power_bank_concept",
+      "label": "Portable power bank with LED indicators",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "usb_c_connector_concept",
+      "label": "USB Type-C connector",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charging_accessories_category_concept",
+      "label": "Charging accessories / electronics category",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_anker_powerbank_20000",
+      "label": "Anker PowerPort 20000mAh power bank product photo (wwwroot/images/products/anker-powerbank-20000.jpg)",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_anker_powerbank_20000mah",
+      "label": "Anker 20000mAh portable power bank (black, with Micro-USB and USB output charging cables)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_portable_battery_charger",
+      "label": "Portable battery charger / power bank product category",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_consumer_electronics_accessories",
+      "label": "Consumer electronics and accessories category",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_anker_brand",
+      "label": "Anker electronics brand",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_galaxyfit3_watch",
+      "label": "galaxyfit3-watch.jpg product photo",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_fitness_band",
+      "label": "Fitness band",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_smartwatch_wearable",
+      "label": "Smartwatch / wearable device",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_samsung_galaxy_fit",
+      "label": "Samsung Galaxy Fit (brand identification)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_fitness_tracking_activity_monitor",
+      "label": "Fitness and activity tracking",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_ecommerce_catalog_product_image",
+      "label": "E-commerce catalog product image",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "label": "Product photo: porcelain tea set (teapot with lid and teacup)",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "label": "Porcelain tea set with teapot and teacup",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_teapot",
+      "label": "Porcelain teapot with sculpted lid finial and white spout and handle",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_teacup",
+      "label": "Porcelain teacup with matching handle and gold-rimmed foot",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_crimson_airbrushed_glaze",
+      "label": "Crimson-to-black airbrushed gradient glaze with white porcelain accents and gold trim",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_city_crests",
+      "label": "Cyrillic city coat-of-arms crests (Minsk and Pinsk) decorating lid band and cup interior",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_vintage_soviet_era_porcelain",
+      "label": "Vintage mid-century (Soviet-era Belarusian) porcelain tableware style",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_porcelain_tea_set_4_studio_product_photography",
+      "label": "Studio product photography style for e-commerce catalog listing",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_xiaomi_kitchen_scale_jpg",
+      "label": "Product photo: e-commerce catalog image (xiaomi-kitchen-scale.jpg)",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_depicted_kitchen_scale",
+      "label": "Depicted object: digital kitchen scale (round weighing platform, LCD display, On/Tare/Off button, g/oz unit toggle)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_kitchen_scale_category",
+      "label": "Category concept: digital kitchen scales for weighing ingredients in cooking and baking",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_escali_brand_attribute",
+      "label": "Depicted brand attribute: 'Escali' logo printed on display panel (matches Escali Pico-style scale, not Xiaomi)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "label": "Product image ml2170-desk-lamp.jpg",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_ml2170_desk_lamp_product",
+      "label": "Desk lamp product ml2170 (catalog listing named by filename)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_broken_ceiling_light_fixture",
+      "label": "Broken ceiling light fixture with exposed wiring and sockets",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_led_light_bulbs",
+      "label": "Two frosted LED light bulbs (A-type), one in socket and one detached",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_shattered_frosted_glass_shards",
+      "label": "Shattered frosted glass shards scattered across the floor",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_bamboo_mat_surface",
+      "label": "Bamboo mat / slatted wooden surface background",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_lighting_fixture_category",
+      "label": "Lighting fixture product category (e-commerce shop imagery)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_blazor_server",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_net_10_sdk",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_public_storefront",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_admin_panel",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_postgresql",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_docker_compose_deployment",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_category_management",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_product_catalog",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_cart_checkout",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_minimalshop",
+      "target": "readme_order_management",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_postgresql",
+      "target": "readme_ef_core_migrations",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_public_storefront",
+      "target": "readme_cart_checkout",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_admin_panel",
+      "target": "readme_category_management",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_admin_panel",
+      "target": "readme_product_catalog",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_admin_panel",
+      "target": "readme_order_management",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_hetzner_minimal_vps",
+      "target": "readme_docker_compose_deployment",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_docker_compose_deployment",
+      "target": "readme_postgresql",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_hetzner_minimal_vps",
+      "target": "readme_env_file_configuration",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_nginx_https_reverse_proxy",
+      "target": "readme_websocket_upgrade_headers",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_websocket_upgrade_headers",
+      "target": "readme_blazor_server",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_nginx_https_reverse_proxy",
+      "target": "readme_docker_compose_deployment",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_env_file_configuration",
+      "target": "readme_configuration_settings",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_admin_password_setting",
+      "target": "readme_admin_auth_service",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_admin_password_setting",
+      "target": "readme_admin_panel",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_zarinpal_payment",
+      "target": "readme_zarinpal_sandbox_mode",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_zarinpal_payment",
+      "target": "readme_cart_checkout",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_models_directory",
+      "target": "readme_data_directory",
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_shop_dbcontext",
+      "target": "readme_data_directory",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_shop_dbcontext",
+      "target": "readme_ef_core_migrations",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_dotnet_ef_commands",
+      "target": "readme_ef_core_migrations",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_components_pages_directory",
+      "target": "readme_public_storefront",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_components_pages_directory",
+      "target": "readme_admin_panel",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_services_directory",
+      "target": "readme_cart_checkout",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_services_directory",
+      "target": "readme_admin_auth_service",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_blazor_logo",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_blazor_logo",
+      "target": "wwwroot_favicon_at_symbol",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_blazor_web_app_branding",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_blazor_web_app_branding",
+      "target": "wwwroot_favicon_minimalshop_site_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_minimalshop_site_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_sony_headphone_whch520_product_photo",
+      "target": "wwwroot_images_products_sony_headphone_whch520_wooden_over_ear_wired_headphones_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_sony_headphone_whch520_product_photo",
+      "target": "wwwroot_images_products_sony_headphone_whch520_headphones_product_category_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_sony_headphone_whch520_product_photo",
+      "target": "wwwroot_images_products_sony_headphone_whch520_sony_whch520_on_ear_wireless_headphones_concept",
+      "relation": "references",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_sony_headphone_whch520_wooden_over_ear_wired_headphones_concept",
+      "target": "wwwroot_images_products_sony_headphone_whch520_headphones_product_category_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_sony_headphone_whch520_sony_whch520_on_ear_wireless_headphones_concept",
+      "target": "wwwroot_images_products_sony_headphone_whch520_headphones_product_category_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\sony-headphone-whch520.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_typec_cable_1m_jpg",
+      "target": "usb_c_charging_cable_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_typec_cable_1m_jpg",
+      "target": "portable_power_bank_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_typec_cable_1m_jpg",
+      "target": "usb_c_connector_concept",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "usb_c_charging_cable_concept",
+      "target": "usb_c_connector_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "usb_c_charging_cable_concept",
+      "target": "portable_power_bank_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "usb_c_charging_cable_concept",
+      "target": "charging_accessories_category_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "portable_power_bank_concept",
+      "target": "charging_accessories_category_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_typec_cable_1m_jpg",
+      "target": "charging_accessories_category_concept",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_anker_powerbank_20000",
+      "target": "concept_anker_powerbank_20000mah",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_anker_powerbank_20000mah",
+      "target": "concept_portable_battery_charger",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_portable_battery_charger",
+      "target": "concept_consumer_electronics_accessories",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_anker_powerbank_20000mah",
+      "target": "concept_anker_brand",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\anker-powerbank-20000.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_fitness_band",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_smartwatch_wearable",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_samsung_galaxy_fit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_fitness_band",
+      "target": "concept_smartwatch_wearable",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_fitness_band",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_samsung_galaxy_fit",
+      "target": "concept_fitness_band",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_ecommerce_catalog_product_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_samsung_galaxy_fit",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_smartwatch_wearable",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_teapot",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_teacup",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_crimson_airbrushed_glaze",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_city_crests",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_teapot",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_teacup",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_teacup",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_crimson_airbrushed_glaze",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_city_crests",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_vintage_soviet_era_porcelain",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_vintage_soviet_era_porcelain",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_teapot_set_photo",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_studio_product_photography",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_studio_product_photography",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_porcelain_tea_set_4_city_crests",
+      "target": "wwwroot_images_products_porcelain_tea_set_4_crimson_airbrushed_glaze",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_xiaomi_kitchen_scale_jpg",
+      "target": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_depicted_kitchen_scale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_depicted_kitchen_scale",
+      "target": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_kitchen_scale_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_depicted_kitchen_scale",
+      "target": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_escali_brand_attribute",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_escali_brand_attribute",
+      "target": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_kitchen_scale_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_escali_brand_attribute",
+      "target": "wwwroot_images_products_xiaomi_kitchen_scale_jpg_depicted_kitchen_scale",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\xiaomi-kitchen-scale.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_broken_ceiling_light_fixture",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_led_light_bulbs",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_shattered_frosted_glass_shards",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_bamboo_mat_surface",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 0.6
+    },
+    {
+      "source": "concept_led_light_bulbs",
+      "target": "concept_broken_ceiling_light_fixture",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_shattered_frosted_glass_shards",
+      "target": "concept_broken_ceiling_light_fixture",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_ml2170_desk_lamp_product",
+      "relation": "references",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_broken_ceiling_light_fixture",
+      "target": "concept_ml2170_desk_lamp_product",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.2,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_broken_ceiling_light_fixture",
+      "target": "concept_lighting_fixture_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_ml2170_desk_lamp_product",
+      "target": "concept_lighting_fixture_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_ml2170_desk_lamp_jpg",
+      "target": "concept_lighting_fixture_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_led_light_bulbs",
+      "target": "concept_lighting_fixture_category",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "storefront_shopping_flow",
+      "label": "Storefront Shopping Flow (catalog -> cart -> checkout -> order)",
+      "nodes": [
+        "readme_public_storefront",
+        "readme_product_catalog",
+        "readme_cart_checkout",
+        "readme_order_management"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md"
+    },
+    {
+      "id": "deployment_stack",
+      "label": "Hetzner Docker Deployment Stack (compose + Postgres + Nginx/HTTPS)",
+      "nodes": [
+        "readme_hetzner_minimal_vps",
+        "readme_docker_compose_deployment",
+        "readme_postgresql",
+        "readme_nginx_https_reverse_proxy",
+        "readme_env_file_configuration"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md"
+    },
+    {
+      "id": "data_layer_stack",
+      "label": "Data Layer Stack (Models -> ShopDbContext -> EF Migrations -> PostgreSQL)",
+      "nodes": [
+        "readme_models_directory",
+        "readme_shop_dbcontext",
+        "readme_ef_core_migrations",
+        "readme_postgresql"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\README.md"
+    },
+    {
+      "id": "favicon_blazor_icon_composition",
+      "label": "Default Blazor favicon icon composition (flame spiral + @ symbol serving as site brand icon)",
+      "nodes": [
+        "wwwroot_favicon_favicon",
+        "wwwroot_favicon_blazor_logo",
+        "wwwroot_favicon_at_symbol",
+        "wwwroot_favicon_blazor_web_app_branding"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png"
+    },
+    {
+      "id": "hyperedge_typec_cable_ecosystem",
+      "label": "USB-C charging ecosystem (cable, connector, power bank)",
+      "nodes": [
+        "usb_c_charging_cable_concept",
+        "usb_c_connector_concept",
+        "portable_power_bank_concept"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\typec-cable-1m.jpg"
+    },
+    {
+      "id": "hyperedge_vintage_belarusian_porcelain_tea_service",
+      "label": "Vintage Belarusian porcelain tea service defined by glaze and city crests",
+      "nodes": [
+        "wwwroot_images_products_porcelain_tea_set_4_porcelain_tea_set",
+        "wwwroot_images_products_porcelain_tea_set_4_crimson_airbrushed_glaze",
+        "wwwroot_images_products_porcelain_tea_set_4_city_crests"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\porcelain-tea-set-4.jpg"
+    },
+    {
+      "id": "hyper_lighting_catalog_imagery",
+      "label": "Lighting product catalog imagery cluster",
+      "members": [
+        "wwwroot_images_products_ml2170_desk_lamp_jpg",
+        "concept_ml2170_desk_lamp_product",
+        "concept_lighting_fixture_category",
+        "concept_broken_ceiling_light_fixture"
+      ],
+      "relation": "shared_theme",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\ml2170-desk-lamp.jpg",
+      "nodes": [
+        "wwwroot_images_products_ml2170_desk_lamp_jpg",
+        "concept_ml2170_desk_lamp_product",
+        "concept_lighting_fixture_category",
+        "concept_broken_ceiling_light_fixture"
+      ]
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

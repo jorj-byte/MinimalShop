@@ -1,0 +1,132 @@
+{
+  "nodes": [
+    {
+      "id": "wwwroot_favicon_favicon",
+      "label": "MinimalShop Favicon (favicon.png)",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_blazor_logo",
+      "label": "Blazor Framework Logo (purple flame spiral)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_at_symbol",
+      "label": "At (@) Symbol Motif",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_blazor_web_app_branding",
+      "label": "Blazor Web App Site Branding (default template icon)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "wwwroot_favicon_minimalshop_site_concept",
+      "label": "MinimalShop Site Concept",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_blazor_logo",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_blazor_logo",
+      "target": "wwwroot_favicon_at_symbol",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_blazor_web_app_branding",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_blazor_web_app_branding",
+      "target": "wwwroot_favicon_minimalshop_site_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_favicon_favicon",
+      "target": "wwwroot_favicon_minimalshop_site_concept",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "favicon_blazor_icon_composition",
+      "label": "Default Blazor favicon icon composition (flame spiral + @ symbol serving as site brand icon)",
+      "nodes": [
+        "wwwroot_favicon_favicon",
+        "wwwroot_favicon_blazor_logo",
+        "wwwroot_favicon_at_symbol",
+        "wwwroot_favicon_blazor_web_app_branding"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "coverage": {
+    "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\favicon.png": 1
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "nodes": [
+    {
+      "id": "wwwroot_images_products_galaxyfit3_watch",
+      "label": "galaxyfit3-watch.jpg product photo",
+      "file_type": "image",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_fitness_band",
+      "label": "Fitness band",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_smartwatch_wearable",
+      "label": "Smartwatch / wearable device",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_samsung_galaxy_fit",
+      "label": "Samsung Galaxy Fit (brand identification)",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_fitness_tracking_activity_monitor",
+      "label": "Fitness and activity tracking",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_ecommerce_catalog_product_image",
+      "label": "E-commerce catalog product image",
+      "file_type": "concept",
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_fitness_band",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_smartwatch_wearable",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_samsung_galaxy_fit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_fitness_band",
+      "target": "concept_smartwatch_wearable",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_fitness_band",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_samsung_galaxy_fit",
+      "target": "concept_fitness_band",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "wwwroot_images_products_galaxyfit3_watch",
+      "target": "concept_ecommerce_catalog_product_image",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_samsung_galaxy_fit",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_smartwatch_wearable",
+      "target": "concept_fitness_tracking_activity_monitor",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "coverage": {
+    "C:\\Users\\jorj\\Projects\\MinimalShop\\wwwroot\\images\\products\\galaxyfit3-watch.jpg": 1
+  }
+}
